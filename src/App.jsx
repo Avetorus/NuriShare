@@ -5,21 +5,18 @@ import { Search, MapPin, List, PlusCircle, Bell, Home, Utensils, Clock, User, Ch
 const APP_NAME = "NURISHARE";
 const APP_SLOGAN = "Sharing with Care.";
 
-const THEMES = {
-  navy: { light: '#061346', dark: '#212842' },
-};
-
 const PALETTE = {
-    darkBg: '#050505',
-    darkCard: '#212842',
-    lightBg: '#F9FAFB', 
+    primary: '#061346',
+    primaryDark: '#212842',
+    lightBg: '#F9FAFB',
+    darkBg: '#0f172a', // slate-900
     lightCard: '#FFFFFF',
+    darkCard: '#1e293b', // slate-800
     cream: '#FFF2DF',
-    primaryAccent: THEMES.navy.light,
     grayText: '#6B7280',
     lightGrayBorder: '#E5E7EB',
     success: '#16a34a',
-    danger: '#dc2626' 
+    danger: '#dc2626'
 };
 
 // --- DATA SIMULASI ---
@@ -180,58 +177,16 @@ const formatTime = (ms) => {
     return `${minutes}m`;
 };
 const CustomToast = ({ message, onClose }) => {
-    useEffect(() => { const timer = setTimeout(onClose, 3000); return () => clearTimeout(timer); }, [onClose]);
-    return <div className="fixed bottom-20 left-1/2 -translate-x-1/2 toast-gradient text-white p-3 rounded-lg shadow-xl z-[60] text-center text-sm opacity-95">{message}</div>;
+    useEffect(() => { const timer = setTimeout(onClose, 3500); return () => clearTimeout(timer); }, [onClose]);
+    return <div className="fixed bottom-20 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#061346] to-[#212842] text-white p-3 rounded-lg shadow-xl z-[60] text-center text-sm opacity-95">{message}</div>;
 };
-const LoadingSpinner = ({ size = 'h-8 w-8', color = 'border-[var(--primary-color)]' }) => (
+const LoadingSpinner = ({ size = 'h-8 w-8', color = 'border-[#061346]' }) => (
     <div className={`animate-spin rounded-full ${size} border-b-2 ${color}`}></div>
 );
-const style = document.createElement('style');
-style.innerHTML = `
-  :root {
-    --primary-color: ${PALETTE.primaryAccent};
-    --primary-color-dark: ${THEMES.navy.dark};
-    --light-bg: ${PALETTE.lightBg};
-    --dark-bg: ${PALETTE.darkBg};
-    --light-card: ${PALETTE.lightCard};
-    --dark-card: ${PALETTE.darkCard};
-    --cream: ${PALETTE.cream};
-    --gray-text: ${PALETTE.grayText};
-    --light-gray-border: ${PALETTE.lightGrayBorder};
-    --success-color: ${PALETTE.success};
-    --danger-color: ${PALETTE.danger};
-    --success-gradient: linear-gradient(to right, #16a34a, #15803d);
-    --danger-gradient: linear-gradient(to right, #dc2626, #b91c1c);
-    --primary-gradient: linear-gradient(to right, var(--primary-color), var(--primary-color-dark));
-  }
-  .hide-scrollbar::-webkit-scrollbar { display: none; }
-  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  input[type="number"]::-webkit-outer-spin-button,
-  input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-  input[type="number"] { -moz-appearance: textfield; }
-  .btn-gradient-primary { background: var(--primary-gradient); }
-  .btn-gradient-success { background: var(--success-gradient); }
-  .btn-gradient-danger { background: var(--danger-gradient); }
-  .toast-gradient {
-    background: var(--primary-gradient);
-  }
-  body {
-      color: #050505;
-      background-color: var(--light-bg);
-      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23dbeafe' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  }
-
-  .dark body {
-      color: #EBEBEB;
-      background-color: var(--dark-bg);
-      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23212842' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  }
-`;
-document.head.appendChild(style);
 
 // --- KOMPONEN TINGKAT ATAS (STANDALONE) ---
 const Header = ({ title, onBack, showLogo = false, unreadCount, onShowNotifications, primary = false }) => (
-  <header className={`p-4 h-20 flex items-center shadow-md sticky top-0 z-30 ${primary ? 'bg-gradient-to-r from-[var(--primary-color)] to-[var(--primary-color-dark)] text-white' : 'bg-[var(--light-card)] dark:bg-[var(--dark-card)] text-gray-800 dark:text-gray-100 border-b border-[var(--light-gray-border)] dark:border-gray-700'}`}>
+  <header className={`p-4 h-20 flex items-center shadow-md sticky top-0 z-30 ${primary ? 'bg-gradient-to-r from-[#061346] to-[#212842] text-white' : 'bg-white dark:bg-[#1e293b] text-gray-800 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700'}`}>
     <div className="w-10">
       {onBack && (
         <button onClick={onBack} className={`p-2 -ml-2 rounded-full transition-colors ${primary ? 'hover:bg-white/20' : 'hover:bg-gray-100 dark:hover:bg-gray-700'}`}>
@@ -257,7 +212,7 @@ const Header = ({ title, onBack, showLogo = false, unreadCount, onShowNotificati
         <button onClick={onShowNotifications} className={`p-2 -mr-2 rounded-full transition-colors relative ${primary ? 'hover:bg-white/20' : 'hover:bg-gray-100 dark:hover:bg-gray-700'}`}>
           <Bell size={24} />
           {unreadCount > 0 && (
-            <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--danger-color)] text-white text-[10px]">{unreadCount}</span>
+            <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#dc2626] text-white text-[10px]">{unreadCount}</span>
           )}
         </button>
       )}
@@ -268,28 +223,28 @@ const Header = ({ title, onBack, showLogo = false, unreadCount, onShowNotificati
 const Nav = ({ activeTab, onTabChange }) => (
     <>
       {/* Sidebar for Desktop */}
-      <nav className="hidden md:flex md:flex-col md:w-20 md:h-screen md:fixed md:left-0 md:top-0 md:bg-[var(--light-card)] dark:md:bg-[var(--dark-card)] md:shadow-lg md:py-4 md:px-2 md:items-center md:justify-start md:gap-4 md:z-40">
-          <LogoWithName isSidebar={true} className="mb-4" nameHandColor="var(--primary-color)" nameLeafColor="var(--success-color)" textHandColor="var(--primary-color)" textLeafColor="var(--success-color)" />
+      <nav className="hidden md:flex md:flex-col md:w-20 md:h-screen md:fixed md:left-0 md:top-0 md:bg-white dark:md:bg-[#1e293b] md:shadow-lg md:py-4 md:px-2 md:items-center md:justify-start md:gap-4 md:z-40">
+          <LogoWithName isSidebar={true} className="mb-4" nameHandColor="#061346" nameLeafColor="#16a34a" textHandColor="#061346" textLeafColor="#16a34a" />
           {['home', 'requests', 'post', 'activities', 'profile'].map((tab) => {
             const icons = { home: Home, requests: Bell, post: PlusCircle, activities: List, profile: User };
             const labels = { home: 'Beranda', requests: 'Permintaan', post: 'Buat', activities: 'Aktivitas', profile: 'Profil'};
             const Icon = icons[tab];
-            return ( <button key={tab} onClick={() => onTabChange(tab)} className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors w-16 h-16 ${activeTab === tab ? 'bg-[var(--cream)] text-[var(--primary-color)]' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'}`} title={labels[tab]}><Icon size={24} /><span className="text-xs mt-1">{labels[tab]}</span></button> );
+            return ( <button key={tab} onClick={() => onTabChange(tab)} className={`flex flex-col items-center justify-center p-2 rounded-lg transition-colors w-16 h-16 ${activeTab === tab ? 'bg-[#FFF2DF] text-[#061346]' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'}`} title={labels[tab]}><Icon size={24} /><span className="text-xs mt-1">{labels[tab]}</span></button> );
           })}
       </nav>
     </>
   );
   
 const BottomNav = ({ activeTab, onTabChange }) => (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[var(--light-card)] dark:bg-[var(--dark-card)] text-gray-700 dark:text-gray-300 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] dark:shadow-[0_-2px_10px_rgba(255,255,255,0.1)] flex justify-around py-2 z-40 h-16 items-center">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-[#1e293b] text-gray-700 dark:text-gray-300 shadow-[0_-2px_10px_rgba(0,0,0,0.05)] dark:shadow-[0_-2px_10px_rgba(255,255,255,0.1)] flex justify-around py-2 z-40 h-16 items-center">
       {['home', 'requests', 'post', 'activities', 'profile'].map((tab) => {
           const icons = { home: Home, requests: Bell, post: PlusCircle, activities: List, profile: User };
           const labels = { home: 'Beranda', requests: 'Permintaan', post: '', activities: 'Aktivitas', profile: 'Profil'};
           const Icon = icons[tab];
           if (tab === 'post') {
-              return ( <button key={tab} onClick={() => onTabChange('post')} className="flex flex-col items-center p-3 rounded-full btn-gradient-primary text-white shadow-lg -mt-6 hover:opacity-80 transition-all transform hover:scale-110"><PlusCircle size={30} /></button> );
+              return ( <button key={tab} onClick={() => onTabChange('post')} className="flex flex-col items-center p-3 rounded-full bg-gradient-to-r from-[#061346] to-[#212842] text-white shadow-lg -mt-6 hover:opacity-80 transition-all transform hover:scale-110"><PlusCircle size={30} /></button> );
           }
-          return ( <button key={tab} onClick={() => onTabChange(tab)} className={`flex flex-col items-center p-2 rounded-lg transition-colors w-16 ${activeTab === tab ? 'text-[var(--primary-color)]' : 'text-gray-400 dark:text-gray-500 hover:text-[var(--primary-color)]'}`}><Icon size={24} /><span className="text-xs mt-1">{labels[tab]}</span></button> );
+          return ( <button key={tab} onClick={() => onTabChange(tab)} className={`flex flex-col items-center p-2 rounded-lg transition-colors w-16 ${activeTab === tab ? 'text-[#061346]' : 'text-gray-400 dark:text-gray-500 hover:text-[#061346]'}`}><Icon size={24} /><span className="text-xs mt-1">{labels[tab]}</span></button> );
       })}
     </nav>
 );
@@ -316,28 +271,28 @@ const LoginScreen = ({ onLogin, onSwitchToRegister, onForgotPassword }) => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-[var(--cream)] to-[var(--light-bg)] flex flex-col items-center justify-center p-6 text-gray-800">
+        <div className="min-h-screen bg-gradient-to-br from-[#FFF2DF] to-[#F9FAFB] flex flex-col items-center justify-center p-6 text-gray-800">
             <div className="w-full max-w-sm text-center">
                 <LogoWithName 
                     className="justify-center mb-6"
-                    nameHandColor="var(--primary-color)" 
-                    nameLeafColor="var(--success-color)" 
-                    textHandColor="var(--primary-color)"
-                    textLeafColor="var(--success-color)"
+                    nameHandColor="#061346" 
+                    nameLeafColor="#16a34a" 
+                    textHandColor="#061346"
+                    textLeafColor="#16a34a"
                 />
-                <h1 className="text-3xl font-bold mb-2 text-[#050505]">Selamat Datang</h1>
+                <h1 className="text-3xl font-bold mb-2 text-gray-900">Selamat Datang</h1>
                 <p className="text-gray-500 mb-8">Login untuk melanjutkan kepedulianmu.</p>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <input type="text" placeholder="Email / Username / No. Tlp" value={credential} onChange={(e) => setCredential(e.target.value)} className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-[var(--light-gray-border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] placeholder:text-gray-500"/>
+                    <input type="text" placeholder="Email / Username / No. Tlp" value={credential} onChange={(e) => setCredential(e.target.value)} className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#061346] placeholder-gray-500"/>
                     <div className="relative">
-                        <input type={showPassword ? 'text' : 'password'} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-[var(--light-gray-border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] pr-10 placeholder:text-gray-500"/>
+                        <input type={showPassword ? 'text' : 'password'} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#061346] pr-10 placeholder-gray-500"/>
                         <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-400 hover:text-gray-700"><EyeOff size={20} className={showPassword ? '' : 'hidden'}/><Eye size={20} className={showPassword ? 'hidden' : ''}/></button>
                     </div>
-                    {error && <p className="text-[var(--danger-color)] text-sm">{error}</p>}
-                    <button onClick={onForgotPassword} type="button" className="text-sm text-[var(--primary-color)] hover:underline text-right w-full block">Lupa Kata Sandi?</button>
-                    <button type="submit" className="w-full btn-gradient-primary hover:opacity-90 text-white font-bold py-3 rounded-lg transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-px"><LogIn className="inline-block mr-2" size={20}/> Login</button>
+                    {error && <p className="text-[#dc2626] text-sm">{error}</p>}
+                    <button onClick={onForgotPassword} type="button" className="text-sm text-[#061346] hover:underline text-right w-full block">Lupa Kata Sandi?</button>
+                    <button type="submit" className="w-full bg-gradient-to-r from-[#061346] to-[#212842] hover:opacity-90 text-white font-bold py-3 rounded-lg transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-px"><LogIn className="inline-block mr-2" size={20}/> Login</button>
                 </form>
-                <p className="mt-8 text-gray-500">Belum punya akun? <button onClick={onSwitchToRegister} className="font-semibold text-[var(--primary-color)] hover:underline">Daftar di sini</button></p>
+                <p className="mt-8 text-gray-500">Belum punya akun? <button onClick={onSwitchToRegister} className="font-semibold text-[#061346] hover:underline">Daftar di sini</button></p>
             </div>
         </div>
     );
@@ -408,47 +363,47 @@ const RegisterScreen = ({ onRegister, onSwitchToLogin }) => {
     };
     
     return (
-        <div className="min-h-screen bg-gradient-to-br from-[var(--cream)] to-[var(--light-bg)] flex flex-col items-center justify-center p-6 text-gray-800">
+        <div className="min-h-screen bg-gradient-to-br from-[#FFF2DF] to-[#F9FAFB] flex flex-col items-center justify-center p-6 text-gray-800">
             <div className="w-full max-w-sm text-center">
                  <LogoWithName 
                     className="justify-center mb-6"
-                    nameHandColor="var(--primary-color)" 
-                    nameLeafColor="var(--success-color)" 
-                    textHandColor="var(--primary-color)"
-                    textLeafColor="var(--success-color)"
+                    nameHandColor="#061346" 
+                    nameLeafColor="#16a34a" 
+                    textHandColor="#061346"
+                    textLeafColor="#16a34a"
                 />
-                <h1 className="text-2xl font-bold text-[#050505] mb-2">Buat Akun Baru (Langkah {step}/3)</h1>
+                <h1 className="text-2xl font-bold text-gray-900 mb-2">Buat Akun Baru (Langkah {step}/3)</h1>
                 <p className="text-gray-500 mb-6">Bergabunglah dalam ekosistem kepedulian.</p>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {step === 1 && (
                         <>
-                            <input type="text" placeholder="Nama Lengkap" name="name" value={formData.name} onChange={handleChange} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-[var(--light-gray-border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] placeholder:text-gray-500"/>
-                            <input type="text" placeholder="Nama Pengguna" name="username" value={formData.username} onChange={handleChange} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-[var(--light-gray-border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] placeholder:text-gray-500"/>
+                            <input type="text" placeholder="Nama Lengkap" name="name" value={formData.name} onChange={handleChange} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#061346] placeholder-gray-500"/>
+                            <input type="text" placeholder="Nama Pengguna" name="username" value={formData.username} onChange={handleChange} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#061346] placeholder-gray-500"/>
                         </>
                     )}
                     {step === 2 && (
                          <>
-                            <input type="email" placeholder="Email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-[var(--light-gray-border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] placeholder:text-gray-500"/>
-                            <input type="tel" placeholder="No. Tlp" name="phone" value={formData.phone} onChange={handleChange} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-[var(--light-gray-border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] placeholder:text-gray-500"/>
+                            <input type="email" placeholder="Email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#061346] placeholder-gray-500"/>
+                            <input type="tel" placeholder="No. Tlp" name="phone" value={formData.phone} onChange={handleChange} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#061346] placeholder-gray-500"/>
                          </>
                     )}
                      {step === 3 && (
                          <>
                             <div className="relative">
-                                <input type={showPassword ? 'text' : 'password'} placeholder="Password (min. 8 karakter)" name="password" value={formData.password} onChange={handleChange} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-[var(--light-gray-border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] pr-10 placeholder:text-gray-500"/>
+                                <input type={showPassword ? 'text' : 'password'} placeholder="Password (min. 8 karakter)" name="password" value={formData.password} onChange={handleChange} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#061346] pr-10 placeholder-gray-500"/>
                                 <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-400 hover:text-gray-700"><EyeOff size={20} className={showPassword ? '' : 'hidden'}/><Eye size={20} className={showPassword ? 'hidden' : ''}/></button>
                             </div>
-                            <input type="password" placeholder="Konfirmasi Password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-[var(--light-gray-border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] placeholder:text-gray-500"/>
+                            <input type="password" placeholder="Konfirmasi Password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#061346] placeholder-gray-500"/>
                          </>
                     )}
-                    {error && <p className="text-[var(--danger-color)] text-sm">{error}</p>}
+                    {error && <p className="text-[#dc2626] text-sm">{error}</p>}
                     <div className="flex gap-4 pt-2">
                         {step > 1 && <button type="button" onClick={prevStep} className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 rounded-lg transition-colors">Kembali</button>}
-                        {step < 3 && <button type="button" onClick={nextStep} className="w-full btn-gradient-primary hover:opacity-90 text-white font-bold py-3 rounded-lg transition-colors">Berikutnya</button>}
-                        {step === 3 && <button type="submit" className="w-full btn-gradient-primary hover:opacity-90 text-white font-bold py-3 rounded-lg transition-colors">Daftar</button>}
+                        {step < 3 && <button type="button" onClick={nextStep} className="w-full bg-gradient-to-r from-[#061346] to-[#212842] hover:opacity-90 text-white font-bold py-3 rounded-lg transition-colors">Berikutnya</button>}
+                        {step === 3 && <button type="submit" className="w-full bg-gradient-to-r from-[#061346] to-[#212842] hover:opacity-90 text-white font-bold py-3 rounded-lg transition-colors">Daftar</button>}
                     </div>
                 </form>
-                <p className="mt-8 text-gray-500">Sudah punya akun? <button onClick={onSwitchToLogin} className="font-semibold text-[var(--primary-color)] hover:underline">Login di sini</button></p>
+                <p className="mt-8 text-gray-500">Sudah punya akun? <button onClick={onSwitchToLogin} className="font-semibold text-[#061346] hover:underline">Login di sini</button></p>
             </div>
         </div>
     );
@@ -460,10 +415,10 @@ const SplashScreen = ({ onFinish }) => {
         <div className="min-h-screen bg-white flex flex-col items-center justify-center text-center p-6">
             <LogoWithName 
                 className="justify-center animate-pulse" 
-                nameHandColor="var(--primary-color)" 
-                nameLeafColor="var(--success-color)" 
-                textHandColor="var(--primary-color)"
-                textLeafColor="var(--success-color)"
+                nameHandColor="#061346" 
+                nameLeafColor="#16a34a" 
+                textHandColor="#061346"
+                textLeafColor="#16a34a"
             />
             <p className="text-gray-500 text-lg mt-4">{APP_SLOGAN}</p>
         </div>
@@ -517,33 +472,33 @@ const ForgotPasswordScreen = ({ onBack, onResetSuccess, handleShowToast, onGoToR
 
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-[var(--cream)] to-[var(--light-bg)] flex flex-col items-center justify-center p-6">
+        <div className="min-h-screen bg-gradient-to-br from-[#FFF2DF] to-[#F9FAFB] flex flex-col items-center justify-center p-6">
             <div className="w-full max-w-sm text-center">
-                <ShieldQuestion size={60} className="mx-auto text-[var(--primary-color)] mb-4"/>
-                <h1 className="text-3xl font-bold text-[#050505] mb-2">Lupa Kata Sandi</h1>
+                <ShieldQuestion size={60} className="mx-auto text-[#061346] mb-4"/>
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">Lupa Kata Sandi</h1>
                 {step === 'sendCode' ? (
                     <>
                         <p className="text-gray-500 mb-8">Masukkan email atau nomor telepon Anda, kami akan mengirimkan kode verifikasi.</p>
                         <form onSubmit={handleSendCode} className="space-y-4">
-                            <input type="text" placeholder="Email atau No. Tlp" value={credential} onChange={e => setCredential(e.target.value)} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-[var(--light-gray-border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] placeholder:text-gray-500"/>
-                             {error && <p className="text-[var(--danger-color)] text-sm">{error}</p>}
+                            <input type="text" placeholder="Email atau No. Tlp" value={credential} onChange={e => setCredential(e.target.value)} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#061346] placeholder-gray-500"/>
+                             {error && <p className="text-[#dc2626] text-sm">{error}</p>}
                              {showRegisterSuggestion && (
-                                 <button type="button" onClick={onGoToRegister} className="w-full mt-2 text-white font-bold py-2 px-4 rounded-lg btn-gradient-primary">
+                                 <button type="button" onClick={onGoToRegister} className="w-full mt-2 text-white font-bold py-2 px-4 rounded-lg bg-gradient-to-r from-[#061346] to-[#212842]">
                                     Daftar di Sini
                                 </button>
                             )}
-                            <button type="submit" className="w-full btn-gradient-primary hover:opacity-90 text-white font-bold py-3 rounded-lg transition-colors shadow-lg">Kirim Kode</button>
+                            <button type="submit" className="w-full bg-gradient-to-r from-[#061346] to-[#212842] hover:opacity-90 text-white font-bold py-3 rounded-lg transition-colors shadow-lg">Kirim Kode</button>
                         </form>
                     </>
                 ) : (
                      <>
                         <p className="text-gray-500 mb-8">Masukkan kode verifikasi dan kata sandi baru Anda.</p>
                         <form onSubmit={handleResetPassword} className="space-y-4">
-                            <input type="text" placeholder="Kode Verifikasi" value={code} onChange={e => setCode(e.target.value)} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-[var(--light-gray-border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] placeholder:text-gray-500"/>
-                            <input type="password" placeholder="Kata Sandi Baru (min. 8 karakter)" value={newPassword} onChange={e => setNewPassword(e.target.value)} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-[var(--light-gray-border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] placeholder:text-gray-500"/>
-                            <input type="password" placeholder="Konfirmasi Kata Sandi Baru" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-[var(--light-gray-border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] placeholder:text-gray-500"/>
-                             {error && <p className="text-[var(--danger-color)] text-sm">{error}</p>}
-                            <button type="submit" className="w-full btn-gradient-primary hover:opacity-90 text-white font-bold py-3 rounded-lg transition-colors shadow-lg">Reset Kata Sandi</button>
+                            <input type="text" placeholder="Kode Verifikasi" value={code} onChange={e => setCode(e.target.value)} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#061346] placeholder-gray-500"/>
+                            <input type="password" placeholder="Kata Sandi Baru (min. 8 karakter)" value={newPassword} onChange={e => setNewPassword(e.target.value)} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#061346] placeholder-gray-500"/>
+                            <input type="password" placeholder="Konfirmasi Kata Sandi Baru" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required className="w-full px-4 py-3 rounded-lg bg-white/70 backdrop-blur-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#061346] placeholder-gray-500"/>
+                             {error && <p className="text-[#dc2626] text-sm">{error}</p>}
+                            <button type="submit" className="w-full bg-gradient-to-r from-[#061346] to-[#212842] hover:opacity-90 text-white font-bold py-3 rounded-lg transition-colors shadow-lg">Reset Kata Sandi</button>
                         </form>
                     </>
                 )}
@@ -591,21 +546,21 @@ const FoodCard = ({ food, onClaimFood, currentUser, handleShowToast, handleNavig
 
 
     return (
-        <div onClick={() => handleNavigate(`food-detail/${food.id}`)} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden flex flex-col relative border border-transparent dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow duration-200 h-full">
+        <div onClick={() => handleNavigate(`food-detail/${food.id}`)} className="bg-white dark:bg-slate-800 rounded-lg shadow-md overflow-hidden flex flex-col relative border border-transparent dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow duration-200 h-full">
             <img src={food.photos[0]} alt={food.category} className="w-full h-40 object-cover" onError={(e) => { e.target.src="https://placehold.co/300x200/EBEBEB/999090?text=No+Image"; }}/>
             <div className="p-3 flex-grow flex flex-col">
                 <h3 className="font-semibold text-base md:text-sm text-gray-900 dark:text-gray-100 leading-tight flex-grow">{food.category}</h3>
                 <p className="text-gray-600 dark:text-gray-400 text-xs mt-1">Stok: {food.stock}/{food.totalStock}</p>
-                <div className="flex items-center text-gray-500 dark:text-gray-400 text-xs mt-2"><MapPin size={12} className="mr-1 text-[var(--primary-color)]" /> {food.location}</div>
+                <div className="flex items-center text-gray-500 dark:text-gray-400 text-xs mt-2"><MapPin size={12} className="mr-1 text-[#061346]" /> {food.location}</div>
                 <div className="flex items-center text-red-500 text-xs mt-1"><Clock size={12} className="mr-1" /> Sisa Waktu: {formatTime(timeRemaining)}</div>
                 <div className="flex items-center justify-between mt-2.5">
                     <span className="font-bold text-base md:text-sm text-gray-800 dark:text-white">{priceDisplay}</span>
                     { !isMyDonation && (
                         <div className="flex items-center gap-2">
                             <button disabled={isMyDonation} onClick={(e) => { e.stopPropagation(); setClaimQuantity(p => Math.max(1, p - 1)); }} className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-bold w-6 h-6 rounded-md flex items-center justify-center text-sm hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50">-</button>
-                            <input type="number" value={claimQuantity} onChange={handleQuantityChange} onClick={(e) => e.stopPropagation()} className="w-8 text-center text-gray-800 dark:text-gray-100 text-sm border-0 border-b border-gray-300 dark:border-gray-600 bg-transparent focus:ring-0 focus:border-[var(--primary-color)] hide-scrollbar" />
+                            <input type="number" value={claimQuantity} onChange={handleQuantityChange} onClick={(e) => e.stopPropagation()} className="w-8 text-center text-gray-800 dark:text-gray-100 text-sm border-0 border-b border-gray-300 dark:border-gray-600 bg-transparent focus:ring-0 focus:border-[#061346] hide-scrollbar" />
                             <button disabled={isMyDonation} onClick={(e) => { e.stopPropagation(); setClaimQuantity(p => Math.min(food.stock, p + 1)); }} className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-bold w-6 h-6 rounded-md flex items-center justify-center text-sm hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50">+</button>
-                            <button onClick={handleCardClaim} disabled={isMyDonation} className="btn-gradient-primary text-white font-bold py-1 px-3 rounded-md text-xs shadow-sm hover:opacity-90 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed">Klaim</button>
+                            <button onClick={handleCardClaim} disabled={isMyDonation} className="bg-gradient-to-r from-[#061346] to-[#212842] text-white font-bold py-1 px-3 rounded-md text-xs shadow-sm hover:opacity-90 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed">Klaim</button>
                         </div>
                     )}
                 </div>
@@ -640,7 +595,7 @@ const FoodDetailScreen = ({ foodId, onBack, onClaimFood, foodList, currentUser, 
 
     if (!food) {
       return (
-          <div className="flex flex-col h-full bg-transparent">
+          <div className="flex flex-col h-full bg-gray-100 dark:bg-slate-900">
               <Header title="Error" onBack={onBack} primary={true} />
               <div className="flex-grow flex flex-col items-center justify-center p-4">
                   <XCircle size={48} className="text-red-500 mb-4" />
@@ -674,7 +629,7 @@ const FoodDetailScreen = ({ foodId, onBack, onClaimFood, foodList, currentUser, 
 
 
     return (
-        <div className="flex flex-col h-full bg-white dark:bg-black">
+        <div className="flex flex-col h-full bg-white dark:bg-slate-900">
             <Header title="Detail Pemberian" onBack={onBack} primary />
             <div className="flex-grow overflow-y-auto pb-24 md:pb-4">
                 <div className="max-w-7xl mx-auto md:grid md:grid-cols-2 md:gap-8 md:p-4">
@@ -688,7 +643,7 @@ const FoodDetailScreen = ({ foodId, onBack, onClaimFood, foodList, currentUser, 
                                         key={index} 
                                         src={photo} 
                                         alt={`Thumbnail ${index + 1}`} 
-                                        className={`h-14 w-14 md:h-20 md:w-20 object-cover rounded-md cursor-pointer border-2 ${mainImage === photo ? 'border-[var(--primary-color)]' : 'border-transparent'}`}
+                                        className={`h-14 w-14 md:h-20 md:w-20 object-cover rounded-md cursor-pointer border-2 ${mainImage === photo ? 'border-[#061346]' : 'border-transparent'}`}
                                         onClick={() => setMainImage(photo)}
                                     />
                                 ))}
@@ -702,14 +657,14 @@ const FoodDetailScreen = ({ foodId, onBack, onClaimFood, foodList, currentUser, 
                              <h2 className="text-xl md:text-3xl font-bold text-gray-800 dark:text-white">{food.category}</h2>
                             <p className="text-sm md:text-lg font-semibold text-gray-700 dark:text-gray-300">{priceDisplay}</p>
                         </div>
-                         <div className="p-3 rounded-lg bg-[var(--primary-color)] text-white">
+                         <div className="p-3 rounded-lg bg-[#061346] text-white">
                             <p className="text-sm">{food.description}</p>
-                            <button onClick={() => onShowRecipeModal(food)} className="mt-3 w-full flex items-center justify-center text-xs font-semibold text-[var(--primary-color)] bg-white py-2 rounded-lg shadow-md hover:bg-gray-100">
+                            <button onClick={() => onShowRecipeModal(food)} className="mt-3 w-full flex items-center justify-center text-xs font-semibold text-[#061346] bg-white py-2 rounded-lg shadow-md hover:bg-gray-100">
                                  <ChefHat size={14} className="mr-2"/> Dapatkan Ide Resep/Sajian
                              </button>
                         </div>
                         
-                        <div className="p-3 rounded-lg bg-[var(--primary-color)] text-white">
+                        <div className="p-3 rounded-lg bg-[#061346] text-white">
                             <h3 className="font-semibold text-base mb-2">Informasi Detail</h3>
                             <div className="space-y-2 text-xs">
                                <div className="flex items-start gap-2.5"><MapPin className="text-white mt-0.5 flex-shrink-0" size={14} /><p>{food.location} ({food.distance})</p></div>
@@ -722,7 +677,7 @@ const FoodDetailScreen = ({ foodId, onBack, onClaimFood, foodList, currentUser, 
                         
                         {!isMyDonation && (
                             <>
-                                <div className="p-3 rounded-lg bg-[var(--primary-color)] text-white">
+                                <div className="p-3 rounded-lg bg-[#061346] text-white">
                                     <h3 className="font-semibold text-base mb-1">Jumlah yang ingin diklaim</h3>
                                     <p className="text-xs opacity-80 mb-2">Maksimal klaim: {food.stock} item</p>
                                     <div className="flex items-center justify-center mt-2">
@@ -732,13 +687,13 @@ const FoodDetailScreen = ({ foodId, onBack, onClaimFood, foodList, currentUser, 
                                     </div>
                                 </div>
                                 
-                                <div className="p-3 rounded-lg bg-[var(--primary-color)] text-white">
+                                <div className="p-3 rounded-lg bg-[#061346] text-white">
                                     <h3 className="font-semibold text-base mb-1.5">Catatan Penting dari Pemberi</h3>
                                     <p className="text-xs opacity-90">Ini adalah makanan sedekah, bukan untuk diperjualbelikan.</p>
                                 </div>
         
-                                 <div className="fixed bottom-16 left-0 right-0 p-3 bg-white/80 dark:bg-black/80 backdrop-blur-sm border-t border-[var(--light-gray-border)] dark:border-gray-700 z-30 md:static md:bottom-auto md:bg-transparent md:dark:bg-transparent md:border-none md:p-0 md:mt-4">
-                                     <button onClick={handleClaimClick} disabled={isExpired || food.status !== 'available' || food.stock <= 0 || isMyDonation} className="btn-gradient-primary hover:opacity-90 text-white font-bold py-3 px-5 rounded-full shadow-lg w-full flex items-center justify-center text-sm transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"><CheckCircle size={18} className="mr-2" /> Klaim Kepedulian</button>
+                                 <div className="fixed bottom-16 left-0 right-0 p-3 bg-white/80 dark:bg-black/80 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700 z-30 md:static md:bottom-auto md:bg-transparent md:dark:bg-transparent md:border-none md:p-0 md:mt-4">
+                                     <button onClick={handleClaimClick} disabled={isExpired || food.status !== 'available' || food.stock <= 0 || isMyDonation} className="bg-gradient-to-r from-[#061346] to-[#212842] hover:opacity-90 text-white font-bold py-3 px-5 rounded-full shadow-lg w-full flex items-center justify-center text-sm transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"><CheckCircle size={18} className="mr-2" /> Klaim Kepedulian</button>
                                 </div>
                             </>
                         )}
@@ -806,14 +761,14 @@ const PostFoodScreen = ({ onPostFood, onBack, handleShowToast, unreadCount, onSh
     }
     
     return (
-        <div className="flex flex-col h-full bg-transparent">
+        <div className="flex flex-col h-full bg-gray-100 dark:bg-slate-900">
             <Header title="Bagikan Kepedulian" onShowNotifications={onShowNotifications} unreadCount={unreadCount} primary={true} />
             <div className="flex-grow overflow-y-auto p-4 pb-24 md:pb-4 max-w-4xl mx-auto w-full">
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl shadow-sm p-4 border border-[var(--light-gray-border)] dark:border-gray-700">
+                    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 border border-gray-200 dark:border-gray-700">
                         <label className="block font-bold mb-2">Foto Makanan (Bisa lebih dari 1)</label>
-                        <div className="flex items-center justify-center h-40 w-full border-2 border-dashed rounded-lg bg-gray-100 dark:bg-gray-700 relative overflow-hidden cursor-pointer hover:border-[var(--primary-color)]">
-                            <div className="text-[var(--gray-text)] dark:text-gray-400 flex flex-col items-center justify-center"><Camera size={40}/><p className="mt-2 text-sm font-medium">Unggah Foto</p></div>
+                        <div className="flex items-center justify-center h-40 w-full border-2 border-dashed rounded-lg bg-gray-100 dark:bg-gray-700 relative overflow-hidden cursor-pointer hover:border-[#061346]">
+                            <div className="text-gray-500 dark:text-gray-400 flex flex-col items-center justify-center"><Camera size={40}/><p className="mt-2 text-sm font-medium">Unggah Foto</p></div>
                             <input type="file" accept="image/*" multiple onChange={handlePhotoUpload} className="absolute inset-0 opacity-0"/>
                         </div>
                         {photos.length > 0 && 
@@ -822,51 +777,60 @@ const PostFoodScreen = ({ onPostFood, onBack, handleShowToast, unreadCount, onSh
                             </div>
                         }
                     </div>
-                    <div className="bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl shadow-sm p-4 border border-[var(--light-gray-border)] dark:border-gray-700"><label htmlFor="itemName" className="block font-bold mb-2">Nama Makanan <span className="text-[var(--danger-color)]">*</span></label><input type="text" id="itemName" value={itemName} onChange={(e) => setItemName(e.target.value)} required className="w-full p-2 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"/></div>
-                    <div className="bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl shadow-sm p-4 border border-[var(--light-gray-border)] dark:border-gray-700"><label htmlFor="category" className="block font-bold mb-2">Kategori <span className="text-[var(--danger-color)]">*</span></label><select id="category" value={category} onChange={(e) => setCategory(e.target.value)} required className="w-full p-2 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-[var(--light-card)] dark:bg-[var(--dark-card)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"><option value="">Pilih Kategori</option>{categories.map(c=><option key={c} value={c}>{c}</option>)}</select></div>
-                    <div className="bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl shadow-sm p-4 border border-[var(--light-gray-border)] dark:border-gray-700">
+                    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 border border-gray-200 dark:border-gray-700"><label htmlFor="itemName" className="block font-bold mb-2">Nama Makanan <span className="text-[#dc2626]">*</span></label><input type="text" id="itemName" value={itemName} onChange={(e) => setItemName(e.target.value)} required className="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-[#061346]"/></div>
+                    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 border border-gray-200 dark:border-gray-700"><label htmlFor="category" className="block font-bold mb-2">Kategori <span className="text-[#dc2626]">*</span></label><select id="category" value={category} onChange={(e) => setCategory(e.target.value)} required className="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-[#061346]"><option value="">Pilih Kategori</option>{categories.map(c=><option key={c} value={c}>{c}</option>)}</select></div>
+                    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 border border-gray-200 dark:border-gray-700">
                         <div className="flex justify-between items-center mb-2">
                            <label htmlFor="description" className="block font-bold">Deskripsi Tambahan</label>
-                           <button type="button" onClick={generateDescription} disabled={isGenerating} className="flex items-center text-xs font-semibold text-[var(--primary-color)] bg-[var(--cream)] px-2 py-1 rounded-full disabled:opacity-50">
+                           <button type="button" onClick={generateDescription} disabled={isGenerating} className="flex items-center text-xs font-semibold text-[#061346] bg-[#FFF2DF] px-2 py-1 rounded-full disabled:opacity-50">
                                {isGenerating ? <LoadingSpinner size="h-4 w-4" color="border-gray-500" /> : <Sparkles size={14} className="mr-1"/>}
                                Buat Otomatis
                            </button>
                         </div>
-                        <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="w-full p-2 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent h-20" placeholder="Contoh: Dibuat pagi ini, level pedas, dll."/>
+                        <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent h-20" placeholder="Contoh: Dibuat pagi ini, level pedas, dll."/>
                     </div>
-                    <div className="bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl shadow-sm p-4 border border-[var(--light-gray-border)] dark:border-gray-700"><label htmlFor="location" className="block font-bold mb-2">Alamat Pengambilan <span className="text-[var(--danger-color)]">*</span></label><textarea id="location" value={location} onChange={(e) => setLocation(e.target.value)} required className="w-full p-2 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent h-20" placeholder="Contoh: Jl. Gatot Subroto No. 1, depan toko buku."/></div>
-                    <div className="bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl shadow-sm p-4 border border-[var(--light-gray-border)] dark:border-gray-700"><label className="block font-bold mb-2">Harga</label><div className="flex items-center space-x-4"><label className="flex items-center"><input type="radio" name="price" checked={isFree} onChange={()=>setIsFree(true)} className="w-4 h-4 text-[var(--primary-color)] bg-gray-100 border-gray-300"/> <span className="ml-2">Gratis</span></label><label className="flex items-center"><input type="radio" name="price" checked={!isFree} onChange={()=>setIsFree(false)} className="w-4 h-4 text-[var(--primary-color)] bg-gray-100 border-gray-300"/> <span className="ml-2">Tetapkan Harga</span></label></div>{!isFree && <div className="relative mt-2"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">Rp</span><input type="number" value={price} onChange={e=>setPrice(e.target.value)} className="w-full p-2 pl-8 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent"/></div>}</div>
-                    <div className="bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl shadow-sm p-4 border border-[var(--light-gray-border)] dark:border-gray-700"><label htmlFor="quantity" className="block font-bold mb-2">Jumlah (Porsi/Unit) <span className="text-[var(--danger-color)]">*</span></label><input type="number" id="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} required className="w-full p-2 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent hide-scrollbar"/></div>
-                    <div className="bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl shadow-sm p-4 border border-[var(--light-gray-border)] dark:border-gray-700"><label htmlFor="timeLimit" className="block font-bold mb-2">Batas Waktu (Menit) <span className="text-[var(--danger-color)]">*</span></label><input type="number" id="timeLimit" value={timeLimit} onChange={(e) => setTimeLimit(e.target.value)} required className="w-full p-2 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent hide-scrollbar"/></div>
-                    <button type="submit" className="btn-gradient-primary hover:opacity-90 text-white font-bold py-3 rounded-full shadow-lg w-full flex items-center justify-center text-lg"><Heart size={20} className="mr-2" /> Confirm My Care</button>
+                    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 border border-gray-200 dark:border-gray-700"><label htmlFor="location" className="block font-bold mb-2">Alamat Pengambilan <span className="text-[#dc2626]">*</span></label><textarea id="location" value={location} onChange={(e) => setLocation(e.target.value)} required className="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent h-20" placeholder="Contoh: Jl. Gatot Subroto No. 1, depan toko buku."/></div>
+                    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 border border-gray-200 dark:border-gray-700"><label className="block font-bold mb-2">Harga</label><div className="flex items-center space-x-4"><label className="flex items-center"><input type="radio" name="price" checked={isFree} onChange={()=>setIsFree(true)} className="w-4 h-4 text-[#061346] bg-gray-100 border-gray-300"/> <span className="ml-2">Gratis</span></label><label className="flex items-center"><input type="radio" name="price" checked={!isFree} onChange={()=>setIsFree(false)} className="w-4 h-4 text-[#061346] bg-gray-100 border-gray-300"/> <span className="ml-2">Tetapkan Harga</span></label></div>{!isFree && <div className="relative mt-2"><span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">Rp</span><input type="number" value={price} onChange={e=>setPrice(e.target.value)} className="w-full p-2 pl-8 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent"/></div>}</div>
+                    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 border border-gray-200 dark:border-gray-700"><label htmlFor="quantity" className="block font-bold mb-2">Jumlah (Porsi/Unit) <span className="text-[#dc2626]">*</span></label><input type="number" id="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} required className="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent hide-scrollbar"/></div>
+                    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 border border-gray-200 dark:border-gray-700"><label htmlFor="timeLimit" className="block font-bold mb-2">Batas Waktu (Menit) <span className="text-[#dc2626]">*</span></label><input type="number" id="timeLimit" value={timeLimit} onChange={(e) => setTimeLimit(e.target.value)} required className="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent hide-scrollbar"/></div>
+                    <button type="submit" className="bg-gradient-to-r from-[#061346] to-[#212842] hover:opacity-90 text-white font-bold py-3 rounded-full shadow-lg w-full flex items-center justify-center text-lg"><Heart size={20} className="mr-2" /> Confirm My Care</button>
                 </form>
             </div>
         </div>
     );
 };
-const MyItemsScreen = ({ onBack, myDonations, myClaims, loading, onShowNotifications, unreadCount, onShowClaimProof, onConfirmCollection, onRate, onNavigate }) => {
+const MyItemsScreen = ({ onBack, myDonations, myClaims, loading, onShowNotifications, unreadCount, onConfirmCollection, onRate, onNavigate, onClearHistory }) => {
     const [activeFilter, setActiveFilter] = useState('donations');
     
+    const showClearButton = (activeFilter === 'donations' && myDonations.length > 0) || (activeFilter === 'claims' && myClaims.length > 0);
+
     return (
-        <div className="flex flex-col h-full bg-transparent">
+        <div className="flex flex-col h-full bg-gray-100 dark:bg-slate-900">
             <Header title="Aktivitas Saya" onShowNotifications={onShowNotifications} unreadCount={unreadCount} primary={true} />
             <div className="flex-grow overflow-y-auto p-4 pb-24 md:pb-4 max-w-5xl mx-auto w-full">
                 <div className="p-1 bg-gray-200 dark:bg-gray-800 flex justify-center space-x-1 mb-4 rounded-full max-w-sm mx-auto">
-                    <button onClick={() => setActiveFilter('donations')} className={`w-full py-2 px-5 rounded-full font-semibold text-sm transition-colors ${activeFilter === 'donations' ? 'bg-white dark:bg-[var(--dark-card)] text-[var(--primary-color)] shadow' : 'text-gray-600 dark:text-gray-300'}`}>Donasiku</button>
-                    <button onClick={() => setActiveFilter('claims')} className={`w-full py-2 px-5 rounded-full font-semibold text-sm transition-colors ${activeFilter === 'claims' ? 'bg-white dark:bg-[var(--dark-card)] text-[var(--primary-color)] shadow' : 'text-gray-600 dark:text-gray-300'}`}>Klaimku</button>
+                    <button onClick={() => setActiveFilter('donations')} className={`w-full py-2 px-5 rounded-full font-semibold text-sm transition-colors ${activeFilter === 'donations' ? 'bg-white dark:bg-slate-700 text-[#061346] shadow' : 'text-gray-600 dark:text-gray-300'}`}>Donasiku</button>
+                    <button onClick={() => setActiveFilter('claims')} className={`w-full py-2 px-5 rounded-full font-semibold text-sm transition-colors ${activeFilter === 'claims' ? 'bg-white dark:bg-slate-700 text-[#061346] shadow' : 'text-gray-600 dark:text-gray-300'}`}>Klaimku</button>
                 </div>
+                 {showClearButton && (
+                    <div className="text-center mb-4">
+                        <button onClick={onClearHistory} className="text-xs font-semibold text-red-500 hover:text-red-700 dark:hover:text-red-400 flex items-center gap-1 p-2 rounded-full hover:bg-red-100 dark:hover:bg-red-900/50 transition-colors mx-auto">
+                            <Trash2 size={14}/> Hapus Riwayat
+                        </button>
+                    </div>
+                 )}
                 
                 {loading ? <div className="flex justify-center mt-10"><LoadingSpinner /></div> : 
                     <div className="space-y-3">
                         {activeFilter === 'donations' && (myDonations.length > 0 ? myDonations.map(item => (
-                            <div key={item.id} onClick={() => onNavigate(item.isRequestFulfillment ? `request-detail/${item.requestId}` : `food-detail/${item.id}`)} className="bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl shadow-sm p-4 border-l-4 border-[var(--primary-color)] cursor-pointer hover:shadow-lg">
+                            <div key={item.id} onClick={() => onNavigate(item.isRequestFulfillment ? `request-detail/${item.requestId}` : `food-detail/${item.id}`)} className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 border-l-4 border-[#061346] cursor-pointer hover:shadow-lg">
                                 <h3 className="font-semibold">{item.category || item.item}</h3>
                                 <p className="text-sm text-gray-600 dark:text-gray-400">Status: {item.status || 'Tersedia'}</p>
                             </div>
-                        )) : <p className="col-span-full text-center text-[var(--gray-text)] mt-10">Anda belum berbagi kepedulian.</p>)}
+                        )) : <p className="col-span-full text-center text-gray-500 mt-10">Anda belum berbagi kepedulian.</p>)}
                         
                         {activeFilter === 'claims' && (myClaims.length > 0 ? myClaims.map(claim => (
-                            <div key={claim.id} onClick={() => onNavigate(claim.isRequestFulfillment ? `request-detail/${claim.requestId}` : `food-detail/${claim.id}`)} className="bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl shadow-sm p-4 border-l-4 border-[var(--success-color)] cursor-pointer hover:shadow-lg">
+                            <div key={claim.id} onClick={() => onNavigate(claim.isRequestFulfillment ? `request-detail/${claim.requestId}` : `claim-detail/${claim.id}`)} className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 border-l-4 border-[#16a34a] cursor-pointer hover:shadow-lg">
                                 <h3 className="font-semibold">{claim.category || claim.item}</h3>
                                 <p className="text-sm text-gray-600 dark:text-gray-400">Dari: {claim.giver || claim.organization}</p>
                                 <p className="text-sm text-gray-600 dark:text-gray-400">Status: {claim.status}</p>
@@ -876,7 +840,7 @@ const MyItemsScreen = ({ onBack, myDonations, myClaims, loading, onShowNotificat
                                     {claim.status === 'collected' && !claim.isRated && <button onClick={(e) => { e.stopPropagation(); onRate(claim); }} className="text-xs bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full hover:bg-yellow-200">Beri Rating</button>}
                                 </div>
                             </div>
-                        )) : <p className="col-span-full text-center text-[var(--gray-text)] mt-10">Anda belum menerima kepedulian.</p>)}
+                        )) : <p className="col-span-full text-center text-gray-500 mt-10">Anda belum menerima kepedulian.</p>)}
                     </div>
                 }
             </div>
@@ -911,7 +875,7 @@ const MyItemsScreen = ({ onBack, myDonations, myClaims, loading, onShowNotificat
     }, []);
 
     return (
-        <div className="flex flex-col h-full bg-transparent">
+        <div className="flex flex-col h-full bg-gray-100 dark:bg-slate-900">
             <Header showLogo={true} onShowNotifications={onShowNotifications} unreadCount={unreadCount} primary={true}/>
             <div className="flex-grow overflow-y-auto pb-24 md:pb-4 px-4 sm:px-6 lg:px-8">
                 <div className="my-4">
@@ -933,24 +897,24 @@ const MyItemsScreen = ({ onBack, myDonations, myClaims, loading, onShowNotificat
                  <div className="w-full mt-8">
                     <div className="flex justify-between items-center mb-2">
                         <h2 className="font-bold text-lg md:text-xl text-gray-800 dark:text-gray-100">Permintaan Mendesak</h2>
-                        <button onClick={() => handleNavigate('requests')} className="text-sm font-semibold text-[var(--primary-color)] hover:underline">Lihat Semua</button>
+                        <button onClick={() => handleNavigate('requests')} className="text-sm font-semibold text-[#061346] dark:text-blue-400 hover:underline">Lihat Semua</button>
                     </div>
                     {urgentRequests && urgentRequests.filter(r => r.type === 'Mendesak').length > 0 ? (
                          <div className="space-y-3 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-4">
                             {urgentRequests.filter(r => r.type === 'Mendesak').map(req => (
-                                <div key={req.id} onClick={() => handleNavigate(`request-detail/${req.id}`)} className="bg-white/80 backdrop-blur-sm dark:bg-[var(--dark-card)] rounded-lg p-3 shadow-md border border-[var(--light-gray-border)] dark:border-gray-700 cursor-pointer">
+                                <div key={req.id} onClick={() => handleNavigate(`request-detail/${req.id}`)} className="bg-white/80 backdrop-blur-sm dark:bg-slate-800 rounded-lg p-3 shadow-md border border-gray-200 dark:border-gray-700 cursor-pointer">
                                     <h3 className="font-semibold text-sm truncate">{req.item}</h3>
                                     <p className="text-xs text-gray-800 dark:text-gray-200 mt-1">Oleh: {req.organization}</p>
-                                    <p className="text-xs text-[var(--gray-text)] dark:text-gray-400 mt-2">{req.timeAgo}</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">{req.timeAgo}</p>
                                 </div>
                             ))}
                         </div>
-                        ) : (<p className="text-center text-[var(--gray-text)] text-sm py-4">Belum ada permintaan mendesak saat ini.</p>)}
+                        ) : (<p className="text-center text-gray-500 text-sm py-4">Belum ada permintaan mendesak saat ini.</p>)}
                 </div>
 
                 <div className="my-4">
-                    <div className="relative"><Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" /><input type="text" placeholder="Cari Makanan, Minuman atau Kebaikan..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-12 pr-4 py-3 rounded-full bg-[var(--light-card)] dark:bg-[var(--dark-card)] text-gray-800 dark:text-gray-100 placeholder-[var(--gray-text)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] border border-gray-200 dark:border-gray-600 shadow-sm"/></div>
-                    <div className="flex space-x-2 overflow-x-auto hide-scrollbar mt-3 pb-2">{categories.map((cat) => (<button key={cat} onClick={() => setFilterCategory(cat)} className={`px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${ filterCategory === cat ? 'btn-gradient-primary text-white shadow-md' : 'bg-[var(--light-card)] dark:bg-[var(--dark-card)] text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700'}`}>{cat}</button>))}</div>
+                    <div className="relative"><Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" /><input type="text" placeholder="Cari Makanan, Minuman atau Kebaikan..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-12 pr-4 py-3 rounded-full bg-white dark:bg-slate-800 text-gray-800 dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#061346] border border-gray-200 dark:border-gray-600 shadow-sm"/></div>
+                    <div className="flex space-x-2 overflow-x-auto hide-scrollbar mt-3 pb-2">{categories.map((cat) => (<button key={cat} onClick={() => setFilterCategory(cat)} className={`px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${ filterCategory === cat ? 'bg-gradient-to-r from-[#061346] to-[#212842] text-white shadow-md' : 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700'}`}>{cat}</button>))}</div>
                 </div>
 
                 <div className="space-y-6">
@@ -971,7 +935,7 @@ const MyItemsScreen = ({ onBack, myDonations, myClaims, loading, onShowNotificat
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                                     {otherDonations.map(food => (<FoodCard key={food.id + '-desktop'} food={food} onClaimFood={onClaimFood} currentUser={currentUser} handleShowToast={handleShowToast} handleNavigate={handleNavigate} />))}
                                 </div>
-                            ) : (<div className="text-center text-[var(--gray-text)] mt-8 p-6 bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl shadow-md border border-[var(--light-gray-border)] dark:border-gray-700"><Utensils size={40} className="mx-auto text-gray-400 mb-3" /><p className="text-base font-semibold mb-1">Tidak ada donasi lain saat ini.</p></div>)}
+                            ) : (<div className="text-center text-gray-500 mt-8 p-6 bg-white dark:bg-slate-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700"><Utensils size={40} className="mx-auto text-gray-400 mb-3" /><p className="text-base font-semibold mb-1">Tidak ada donasi lain saat ini.</p></div>)}
                         </div>
                     </>)}
                 </div>
@@ -981,30 +945,30 @@ const MyItemsScreen = ({ onBack, myDonations, myClaims, loading, onShowNotificat
 };
 const ProfileScreen = ({ user, onLogout, onNavigate, onShowNotifications, unreadCount }) => { 
     return (
-        <div className="flex flex-col h-full bg-transparent">
+        <div className="flex flex-col h-full bg-gray-100 dark:bg-slate-900">
             <Header title="Profil" onShowNotifications={onShowNotifications} unreadCount={unreadCount} primary={true} />
             <div className="flex-grow overflow-y-auto p-4 md:p-8 pb-24 md:pb-8 w-full">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="md:col-span-1">
-                        <div className="bg-[var(--light-card)] dark:bg-[var(--dark-card)] p-4 shadow-sm flex flex-col items-center text-center rounded-xl h-full">
+                        <div className="bg-white dark:bg-slate-800 p-4 shadow-sm flex flex-col items-center text-center rounded-xl h-full">
                             <img src={user.profilePicture} alt="Profile" className="w-24 h-24 rounded-full border-4 border-emerald-200 object-cover" onError={(e) => { e.target.src=`https://placehold.co/100x100/061346/FFFFFF?text=${user.name.charAt(0)}`; }}/>
                             <h2 className="text-xl font-bold mt-4">{user.name}</h2>
                             <p className="text-sm text-gray-500">@{user.username}</p>
-                            <p className="text-sm text-[var(--gray-text)] dark:text-gray-400">{user.email}</p>
-                            <p className="text-sm text-[var(--gray-text)] dark:text-gray-400">{user.phone}</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">{user.email}</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">{user.phone}</p>
                             <p className="mt-2 text-sm font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100 px-3 py-1 rounded-full">{user.level}</p>
                         </div>
                     </div>
                     <div className="md:col-span-2 space-y-4">
-                        <div className="bg-gradient-to-br from-[var(--cream)] to-white/80 dark:from-[var(--dark-card)] dark:to-gray-800 text-gray-800 dark:text-white p-4 rounded-xl shadow-lg"><h3 className="font-bold text-lg flex items-center text-[var(--primary-color)] dark:text-emerald-400"><Heart size={20} className="mr-2"/> Jejak Kepedulian Saya</h3><p className="mt-2 text-base">Anda telah peduli pada <span className="font-bold text-2xl">{user.familiesCaredFor || 0}</span> kesempatan bulan ini.</p><p className="mt-1 text-sm">Poin Kebaikan: <span className="font-bold">{user.points || 0}</span></p></div>
-                        <div className="bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl shadow-sm border border-[var(--light-gray-border)] dark:border-gray-700">
+                        <div className="bg-gradient-to-br from-[#FFF2DF] to-white/80 dark:from-slate-800 dark:to-slate-700 text-gray-800 dark:text-white p-4 rounded-xl shadow-lg"><h3 className="font-bold text-lg flex items-center text-[#061346] dark:text-emerald-400"><Heart size={20} className="mr-2"/> Jejak Kepedulian Saya</h3><p className="mt-2 text-base">Anda telah peduli pada <span className="font-bold text-2xl">{user.familiesCaredFor || 0}</span> kesempatan bulan ini.</p><p className="mt-1 text-sm">Poin Kebaikan: <span className="font-bold">{user.points || 0}</span></p></div>
+                        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
                              <button onClick={() => onNavigate('redeem-points')} className="flex items-center w-full p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors justify-between text-gray-800 dark:text-gray-200"><span className="flex items-center"><Award size={20} className="mr-3 text-yellow-500" /> Tukar Poin Kebaikan</span><ChevronRight size={20} className="text-gray-400" /></button>
-                             <button onClick={() => onNavigate('activities')} className="flex items-center w-full p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors justify-between text-gray-800 dark:text-gray-200 border-t border-[var(--light-gray-border)] dark:border-gray-700"><span className="flex items-center"><ClipboardList size={20} className="mr-3 text-[var(--primary-color)]" /> Aktivitas Saya</span><ChevronRight size={20} className="text-gray-400" /></button>
-                            <button onClick={() => onNavigate('account-settings')} className="flex items-center w-full p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors justify-between text-gray-800 dark:text-gray-200 border-t border-[var(--light-gray-border)] dark:border-gray-700"><span className="flex items-center"><Settings size={20} className="mr-3 text-[var(--gray-text)]" /> Pengaturan Akun</span><ChevronRight size={20} className="text-gray-400" /></button>
-                             <button onClick={() => onNavigate('about-us')} className="flex items-center w-full p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors justify-between text-gray-800 dark:text-gray-200 border-t border-[var(--light-gray-border)] dark:border-gray-700"><span className="flex items-center"><Info size={20} className="mr-3 text-[var(--gray-text)]" /> Tentang NURISHARE</span><ChevronRight size={20} className="text-gray-400" /></button>
-                            <button onClick={() => onNavigate('help-center')} className="flex items-center w-full p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors justify-between text-gray-800 dark:text-gray-200 border-t border-[var(--light-gray-border)] dark:border-gray-700"><span className="flex items-center"><HelpCircle size={20} className="mr-3 text-[var(--gray-text)]" /> Pusat Bantuan & FAQ</span><ChevronRight size={20} className="text-gray-400" /></button>
+                             <button onClick={() => onNavigate('activities')} className="flex items-center w-full p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors justify-between text-gray-800 dark:text-gray-200 border-t border-gray-200 dark:border-gray-700"><span className="flex items-center"><ClipboardList size={20} className="mr-3 text-[#061346]" /> Aktivitas Saya</span><ChevronRight size={20} className="text-gray-400" /></button>
+                            <button onClick={() => onNavigate('account-settings')} className="flex items-center w-full p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors justify-between text-gray-800 dark:text-gray-200 border-t border-gray-200 dark:border-gray-700"><span className="flex items-center"><Settings size={20} className="mr-3 text-gray-500" /> Pengaturan Akun</span><ChevronRight size={20} className="text-gray-400" /></button>
+                             <button onClick={() => onNavigate('about-us')} className="flex items-center w-full p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors justify-between text-gray-800 dark:text-gray-200 border-t border-gray-200 dark:border-gray-700"><span className="flex items-center"><Info size={20} className="mr-3 text-gray-500" /> Tentang NURISHARE</span><ChevronRight size={20} className="text-gray-400" /></button>
+                            <button onClick={() => onNavigate('help-center')} className="flex items-center w-full p-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors justify-between text-gray-800 dark:text-gray-200 border-t border-gray-200 dark:border-gray-700"><span className="flex items-center"><HelpCircle size={20} className="mr-3 text-gray-500" /> Pusat Bantuan & FAQ</span><ChevronRight size={20} className="text-gray-400" /></button>
                         </div>
-                        <button onClick={onLogout} className="btn-gradient-danger hover:opacity-90 text-white font-semibold py-3 px-6 rounded-full w-full shadow-lg transition-colors flex items-center justify-center"><LogOut size={18} className="mr-2"/> Keluar Akun</button>
+                        <button onClick={onLogout} className="bg-gradient-to-r from-[#dc2626] to-[#b91c1c] hover:opacity-90 text-white font-semibold py-3 px-6 rounded-full w-full shadow-lg transition-colors flex items-center justify-center"><LogOut size={18} className="mr-2"/> Keluar Akun</button>
                     </div>
                 </div>
             </div>
@@ -1013,30 +977,30 @@ const ProfileScreen = ({ user, onLogout, onNavigate, onShowNotifications, unread
 };
 const NotificationsScreen = ({ notifications, onBack, onMarkAsRead, onDeleteNotification, onMarkAllRead, onClearHistory, onNotifClick, onShowNotifications, unreadCount }) => {
     return (
-        <div className="flex flex-col h-full bg-transparent">
+        <div className="flex flex-col h-full bg-gray-100 dark:bg-slate-900">
             <Header title="Notifikasi" onBack={onBack} onShowNotifications={onShowNotifications} unreadCount={unreadCount} primary={true} />
             <div className="flex-grow overflow-y-auto p-4 pb-24 md:pb-4 max-w-2xl mx-auto w-full">
-                <div className="p-4 flex justify-between items-center bg-gray-100 dark:bg-gray-800 border-b border-[var(--light-gray-border)] dark:border-gray-700 sticky top-0 rounded-t-xl">
-                    <button onClick={onMarkAllRead} className="text-sm text-[var(--primary-color)] font-semibold flex items-center gap-1">
+                <div className="p-4 flex justify-between items-center bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 rounded-t-xl">
+                    <button onClick={onMarkAllRead} className="text-sm text-[#061346] font-semibold flex items-center gap-1">
                         <CheckCircle size={16}/> Tandai semua dibaca
                     </button>
-                    <button onClick={onClearHistory} className="text-sm text-[var(--danger-color)] font-semibold flex items-center gap-1">
+                    <button onClick={onClearHistory} className="text-sm text-[#dc2626] font-semibold flex items-center gap-1">
                         <Trash2 size={16}/> Hapus Semua
                     </button>
                 </div>
                 <div className="space-y-3 mt-4">
                     {notifications.length > 0 ? (
                         notifications.map(notif => (
-                            <div key={notif.id} className={`p-4 flex items-center gap-3 transition-colors rounded-lg shadow-sm border border-transparent dark:border-gray-700 ${!notif.read ? 'bg-[var(--cream)] dark:bg-[var(--dark-card)]' : 'bg-[var(--light-card)] dark:bg-[var(--dark-card)]'}`}>
-                                <div className="flex-grow cursor-pointer" onClick={() => onNotifClick(notif)}><p className="text-gray-800 dark:text-gray-200 text-sm">{notif.text}</p><p className="text-xs text-[var(--gray-text)] mt-1">{notif.timeAgo}</p></div>
+                            <div key={notif.id} className={`p-4 flex items-center gap-3 transition-colors rounded-lg shadow-sm border border-transparent dark:border-gray-700 ${!notif.read ? 'bg-[#FFF2DF] dark:bg-slate-800' : 'bg-white dark:bg-slate-800'}`}>
+                                <div className="flex-grow cursor-pointer" onClick={() => onNotifClick(notif)}><p className="text-gray-800 dark:text-gray-200 text-sm">{notif.text}</p><p className="text-xs text-gray-500 mt-1">{notif.timeAgo}</p></div>
                                 <div className="flex items-center gap-2">
-                                    {!notif.read && (<button onClick={() => onMarkAsRead(notif.id)} className="p-1 text-gray-400 hover:text-[var(--success-color)] rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"><Check size={18} /></button>)}
-                                    <button onClick={() => onDeleteNotification(notif.id)} className="p-1 text-gray-400 hover:text-[var(--danger-color)] rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"><Trash2 size={18} /></button>
+                                    {!notif.read && (<button onClick={() => onMarkAsRead(notif.id)} className="p-1 text-gray-400 hover:text-[#16a34a] rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"><Check size={18} /></button>)}
+                                    <button onClick={() => onDeleteNotification(notif.id)} className="p-1 text-gray-400 hover:text-[#dc2626] rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"><Trash2 size={18} /></button>
                                 </div>
                             </div>
                         ))
                     ) : (
-                        <div className="text-center text-[var(--gray-text)] p-10 mt-20"><Bell size={50} className="mx-auto mb-4" /><h3 className="font-semibold text-lg">Tidak Ada Notifikasi</h3><p className="text-sm">Semua notifikasi Anda akan muncul di sini.</p></div>
+                        <div className="text-center text-gray-500 p-10 mt-20"><Bell size={50} className="mx-auto mb-4" /><h3 className="font-semibold text-lg">Tidak Ada Notifikasi</h3><p className="text-sm">Semua notifikasi Anda akan muncul di sini.</p></div>
                     )}
                 </div>
             </div>
@@ -1064,19 +1028,19 @@ const RequestsScreen = ({ requests, onCreateRequest, onHelpRequest, currentUser,
     };
 
     return(
-        <div className="flex flex-col h-full bg-transparent">
+        <div className="flex flex-col h-full bg-gray-100 dark:bg-slate-900">
             <Header title="Permintaan Pangan" primary={true} onShowNotifications={onShowNotifications} unreadCount={unreadCount} />
             <div className="flex-grow overflow-y-auto p-4 pb-24 md:pb-4 max-w-5xl mx-auto w-full">
-                <button onClick={() => setShowForm(!showForm)} className="btn-gradient-primary text-white font-semibold py-3 px-6 rounded-full w-full shadow-lg hover:opacity-90 transition-colors mb-4 flex items-center justify-center"><PlusCircle size={20} className="mr-2" /> {showForm ? 'Tutup Form' : 'Buat Permintaan Baru'}</button>
+                <button onClick={() => setShowForm(!showForm)} className="bg-gradient-to-r from-[#061346] to-[#212842] text-white font-semibold py-3 px-6 rounded-full w-full shadow-lg hover:opacity-90 transition-colors mb-4 flex items-center justify-center"><PlusCircle size={20} className="mr-2" /> {showForm ? 'Tutup Form' : 'Buat Permintaan Baru'}</button>
                 {showForm && (
-                    <form onSubmit={handleFormSubmit} className="bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl shadow-md p-4 mb-6 border border-[var(--light-gray-border)] dark:border-gray-700 space-y-3">
+                    <form onSubmit={handleFormSubmit} className="bg-white dark:bg-slate-800 rounded-xl shadow-md p-4 mb-6 border border-gray-200 dark:border-gray-700 space-y-3">
                         <h3 className="font-bold text-lg">Form Permintaan Baru</h3>
-                         <div><label htmlFor="reqItem" className="block text-sm font-semibold mb-1">Item Dibutuhkan:*</label><input type="text" id="reqItem" value={itemName} onChange={e => setItemName(e.target.value)} className="w-full p-2 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent" placeholder="Nasi Kotak, Sayuran Segar" required /></div>
-                         <div><label htmlFor="reqQuantity" className="block text-sm font-semibold mb-1">Kuantitas:*</label><input type="text" id="reqQuantity" value={quantity} onChange={e => setQuantity(e.target.value)} className="w-full p-2 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent" placeholder="50 kotak, 10 kg" required /></div>
-                         <div><label htmlFor="reqLocation" className="block text-sm font-semibold mb-1">Lokasi Penyaluran:*</label><input type="text" id="reqLocation" value={location} onChange={e => setLocation(e.target.value)} className="w-full p-2 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent" placeholder="Panti Asuhan Pelita Harapan, Jl. Kasih" required /></div>
-                         <div><label htmlFor="reqDetail" className="block text-sm font-semibold mb-1">Detail Tambahan:</label><textarea id="reqDetail" value={details} onChange={e => setDetails(e.target.value)} className="w-full p-2 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg h-20 bg-transparent" placeholder="Contoh: Untuk makan siang anak-anak panti"></textarea></div>
-                         <div className="flex items-center"><input type="checkbox" id="isUrgent" checked={isUrgent} onChange={(e) => setIsUrgent(e.target.checked)} className="h-4 w-4 rounded border-gray-300 text-[var(--primary-color)] focus:ring-[var(--primary-color)]" /><label htmlFor="isUrgent" className="ml-2 block text-sm">Tandai sebagai permintaan mendesak</label></div>
-                        <button type="submit" className="btn-gradient-primary text-white font-semibold py-2 px-4 rounded-full w-full hover:opacity-90"><CheckCircle size={18} className="mr-2 inline"/> Ajukan Permintaan</button>
+                         <div><label htmlFor="reqItem" className="block text-sm font-semibold mb-1">Item Dibutuhkan:*</label><input type="text" id="reqItem" value={itemName} onChange={e => setItemName(e.target.value)} className="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent" placeholder="Nasi Kotak, Sayuran Segar" required /></div>
+                         <div><label htmlFor="reqQuantity" className="block text-sm font-semibold mb-1">Kuantitas:*</label><input type="text" id="reqQuantity" value={quantity} onChange={e => setQuantity(e.target.value)} className="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent" placeholder="50 kotak, 10 kg" required /></div>
+                         <div><label htmlFor="reqLocation" className="block text-sm font-semibold mb-1">Lokasi Penyaluran:*</label><input type="text" id="reqLocation" value={location} onChange={e => setLocation(e.target.value)} className="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent" placeholder="Panti Asuhan Pelita Harapan, Jl. Kasih" required /></div>
+                         <div><label htmlFor="reqDetail" className="block text-sm font-semibold mb-1">Detail Tambahan:</label><textarea id="reqDetail" value={details} onChange={e => setDetails(e.target.value)} className="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg h-20 bg-transparent" placeholder="Contoh: Untuk makan siang anak-anak panti"></textarea></div>
+                         <div className="flex items-center"><input type="checkbox" id="isUrgent" checked={isUrgent} onChange={(e) => setIsUrgent(e.target.checked)} className="h-4 w-4 rounded border-gray-300 text-[#061346] focus:ring-[#061346]" /><label htmlFor="isUrgent" className="ml-2 block text-sm">Tandai sebagai permintaan mendesak</label></div>
+                        <button type="submit" className="bg-gradient-to-r from-[#061346] to-[#212842] text-white font-semibold py-2 px-4 rounded-full w-full hover:opacity-90"><CheckCircle size={18} className="mr-2 inline"/> Ajukan Permintaan</button>
                     </form>
                 )}
                 
@@ -1086,7 +1050,7 @@ const RequestsScreen = ({ requests, onCreateRequest, onHelpRequest, currentUser,
                             <div>
                                 <h2 className="font-bold text-lg mb-3">Permintaan Saya</h2>
                                 <div className="space-y-3">
-                                    {myRequests.map(req => (<div key={req.id} onClick={() => onNavigate(`request-detail/${req.id}`)} className={`bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl shadow-sm p-4 border-l-4 ${req.type === 'Mendesak' ? 'border-red-500' : 'border-[var(--primary-color)]'} cursor-pointer hover:shadow-md transition-shadow`}>
+                                    {myRequests.map(req => (<div key={req.id} onClick={() => onNavigate(`request-detail/${req.id}`)} className={`bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 border-l-4 ${req.type === 'Mendesak' ? 'border-red-500' : 'border-[#061346]'} cursor-pointer hover:shadow-md transition-shadow`}>
                                         <h3 className="font-semibold text-base">{req.item}</h3>
                                         <p className={`text-xs font-bold mt-2 ${req.status === 'open' ? 'text-green-600' : 'text-yellow-600'}`}>Status: {req.status === 'open' ? 'Terbuka' : 'Dalam Bantuan'}</p>
                                     </div>))}
@@ -1096,7 +1060,7 @@ const RequestsScreen = ({ requests, onCreateRequest, onHelpRequest, currentUser,
                         <div>
                             <h2 className="font-bold text-lg mb-3">Permintaan Orang Lain</h2>
                             <div className="space-y-3">
-                                {otherRequests.length > 0 ? (otherRequests.map(req => (<div key={req.id} onClick={() => onNavigate(`request-detail/${req.id}`)} className={`bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl shadow-sm p-4 border-l-4 ${req.type === 'Mendesak' ? 'border-red-500' : 'border-[var(--primary-color)]'} cursor-pointer hover:shadow-md transition-shadow`}>
+                                {otherRequests.length > 0 ? (otherRequests.map(req => (<div key={req.id} onClick={() => onNavigate(`request-detail/${req.id}`)} className={`bg-white dark:bg-slate-800 rounded-xl shadow-sm p-4 border-l-4 ${req.type === 'Mendesak' ? 'border-red-500' : 'border-[#061346]'} cursor-pointer hover:shadow-md transition-shadow`}>
                                     <div className="flex justify-between items-start">
                                         <div>
                                             <h3 className="font-semibold text-base">{req.item}</h3>
@@ -1106,7 +1070,7 @@ const RequestsScreen = ({ requests, onCreateRequest, onHelpRequest, currentUser,
                                     </div>
                                     <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Lokasi: <span className="font-medium">{req.location}</span></p>
                                     <p className={`text-xs font-bold mt-2 ${req.status === 'open' ? 'text-green-600' : 'text-yellow-600'}`}>Status: {req.status === 'open' ? 'Terbuka' : 'Dalam Bantuan'}</p>
-                                </div>))) : ( <p className="text-center text-[var(--gray-text)] mt-8">Belum ada permintaan dari orang lain saat ini.</p> )}
+                                </div>))) : ( <p className="text-center text-gray-500 mt-8">Belum ada permintaan dari orang lain saat ini.</p> )}
                             </div>
                         </div>
                     </div>
@@ -1140,35 +1104,35 @@ const AccountSettingsScreen = ({ user, onBack, onSave, theme, setTheme, handleSh
     }
 
     return (
-        <div className="flex flex-col h-full bg-transparent">
+        <div className="flex flex-col h-full bg-gray-100 dark:bg-slate-900">
             <Header title="Pengaturan Akun" onBack={onBack} onShowNotifications={onShowNotifications} unreadCount={unreadCount} primary={true}/>
             <div className="flex-grow overflow-y-auto p-4 pb-24 md:pb-4 max-w-2xl mx-auto w-full">
                 <div className="flex flex-col items-center mt-4">
                     <div className="relative">
-                        <img src={photo} alt="Profile" className="w-28 h-28 rounded-full border-4 border-white dark:border-[var(--dark-card)] object-cover shadow-lg" onError={(e) => { e.target.src=`https://placehold.co/112x112/061346/FFFFFF?text=${user.name.charAt(0)}`; }}/>
+                        <img src={photo} alt="Profile" className="w-28 h-28 rounded-full border-4 border-white dark:border-slate-800 object-cover shadow-lg" onError={(e) => { e.target.src=`https://placehold.co/112x112/061346/FFFFFF?text=${user.name.charAt(0)}`; }}/>
                         <input type="file" ref={fileInputRef} onChange={handlePhotoChange} className="hidden" accept="image/*"/>
-                        <button onClick={() => fileInputRef.current.click()} className="absolute bottom-0 right-0 bg-[var(--primary-color)] p-2 rounded-full text-white shadow-md border-2 border-white"><Camera size={16} /></button>
+                        <button onClick={() => fileInputRef.current.click()} className="absolute bottom-0 right-0 bg-[#061346] p-2 rounded-full text-white shadow-md border-2 border-white"><Camera size={16} /></button>
                     </div>
                 </div>
-                <div className="bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl p-4 shadow-sm border border-[var(--light-gray-border)] dark:border-gray-700 mt-6 space-y-4">
-                    <div><label className="block text-sm font-medium mb-1">Nama Lengkap</label><input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full p-2 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent"/></div>
-                    <div><label className="block text-sm font-medium mb-1">Nama Pengguna</label><input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full p-2 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent"/></div>
-                    <div><label className="block text-sm font-medium mb-1">Email</label><input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-2 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent"/></div>
-                    <div><label className="block text-sm font-medium mb-1">No. Tlp</label><input type="tel" value={phone} onChange={handlePhoneChange} className="w-full p-2 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent"/></div>
+                <div className="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700 mt-6 space-y-4">
+                    <div><label className="block text-sm font-medium mb-1">Nama Lengkap</label><input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent"/></div>
+                    <div><label className="block text-sm font-medium mb-1">Nama Pengguna</label><input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent"/></div>
+                    <div><label className="block text-sm font-medium mb-1">Email</label><input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent"/></div>
+                    <div><label className="block text-sm font-medium mb-1">No. Tlp</label><input type="tel" value={phone} onChange={handlePhoneChange} className="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent"/></div>
 
-                    <button onClick={() => onNavigate('change-password')} className="text-sm text-[var(--primary-color)] hover:underline">Ganti Kata Sandi</button>
+                    <button onClick={() => onNavigate('change-password')} className="text-sm text-[#061346] dark:text-blue-400 hover:underline">Ganti Kata Sandi</button>
                 </div>
-                <div className="bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl p-4 shadow-sm border border-[var(--light-gray-border)] dark:border-gray-700 mt-6">
+                <div className="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-gray-200 dark:border-gray-700 mt-6">
                     <h3 className="font-bold mb-3">Tampilan Aplikasi</h3>
                     <div className="space-y-2">
                        <label className="block text-sm font-medium mb-1">Mode</label>
                        <div className="flex items-center space-x-2 p-1 bg-gray-100 dark:bg-gray-700 rounded-full">
-                           <button onClick={() => setTheme({...theme, mode:'light'})} className={`w-full text-center rounded-full p-1.5 text-sm ${theme.mode === 'light' ? 'bg-white dark:bg-gray-500 shadow' : ''}`}><Sun size={16} className="inline mr-1"/> Terang</button>
-                           <button onClick={() => setTheme({...theme, mode:'dark'})} className={`w-full text-center rounded-full p-1.5 text-sm ${theme.mode === 'dark' ? 'bg-gray-900 text-white shadow' : ''}`}><Moon size={16} className="inline mr-1"/> Gelap</button>
+                           <button onClick={() => setTheme('light')} className={`w-full text-center rounded-full p-1.5 text-sm ${theme === 'light' ? 'bg-white dark:bg-gray-500 shadow' : ''}`}><Sun size={16} className="inline mr-1"/> Terang</button>
+                           <button onClick={() => setTheme('dark')} className={`w-full text-center rounded-full p-1.5 text-sm ${theme === 'dark' ? 'bg-gray-900 text-white shadow' : ''}`}><Moon size={16} className="inline mr-1"/> Gelap</button>
                        </div>
                     </div>
                 </div>
-                <button onClick={handleSave} className="w-full btn-gradient-primary text-white font-bold py-3 mt-6 rounded-full shadow-lg hover:opacity-90">Simpan Perubahan</button>
+                <button onClick={handleSave} className="w-full bg-gradient-to-r from-[#061346] to-[#212842] text-white font-bold py-3 mt-6 rounded-full shadow-lg hover:opacity-90">Simpan Perubahan</button>
             </div>
         </div>
     );
@@ -1207,10 +1171,10 @@ const ChangePasswordScreen = ({ onBack, onSubmit }) => {
     };
 
     return (
-        <div className="flex flex-col h-full bg-transparent">
+        <div className="flex flex-col h-full bg-gray-100 dark:bg-slate-900">
             <Header title="Ganti Kata Sandi" onBack={onBack} primary={true}/>
             <div className="flex-grow overflow-y-auto p-4 pb-24 md:pb-4 max-w-2xl mx-auto w-full">
-                <form onSubmit={handleSubmit} className="bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-xl p-6 shadow-sm border border-[var(--light-gray-border)] dark:border-gray-700 mt-6 space-y-4">
+                <form onSubmit={handleSubmit} className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 mt-6 space-y-4">
                     <h2 className="text-xl font-bold text-center mb-4">Perbarui Keamanan Akun Anda</h2>
                     
                     <div>
@@ -1220,7 +1184,7 @@ const ChangePasswordScreen = ({ onBack, onSubmit }) => {
                                 type={showCurrent ? 'text' : 'password'} 
                                 value={currentPassword} 
                                 onChange={(e) => setCurrentPassword(e.target.value)} 
-                                className="w-full p-2 pr-10 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"
+                                className="w-full p-2 pr-10 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-[#061346]"
                                 required 
                             />
                             <button type="button" onClick={() => setShowCurrent(!showCurrent)} className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-400 hover:text-gray-700">
@@ -1236,7 +1200,7 @@ const ChangePasswordScreen = ({ onBack, onSubmit }) => {
                                 type={showNew ? 'text' : 'password'} 
                                 value={newPassword} 
                                 onChange={(e) => setNewPassword(e.target.value)} 
-                                className="w-full p-2 pr-10 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"
+                                className="w-full p-2 pr-10 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-[#061346]"
                                 placeholder="Minimal 8 karakter"
                                 required 
                             />
@@ -1253,7 +1217,7 @@ const ChangePasswordScreen = ({ onBack, onSubmit }) => {
                                 type={showConfirm ? 'text' : 'password'}
                                 value={confirmPassword} 
                                 onChange={(e) => setConfirmPassword(e.target.value)} 
-                                className="w-full p-2 pr-10 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]"
+                                className="w-full p-2 pr-10 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent focus:outline-none focus:ring-2 focus:ring-[#061346]"
                                 required 
                             />
                             <button type="button" onClick={() => setShowConfirm(!showConfirm)} className="absolute inset-y-0 right-0 px-3 flex items-center text-gray-400 hover:text-gray-700">
@@ -1262,9 +1226,9 @@ const ChangePasswordScreen = ({ onBack, onSubmit }) => {
                         </div>
                     </div>
                     
-                    {error && <p className="text-[var(--danger-color)] text-sm text-center">{error}</p>}
+                    {error && <p className="text-[#dc2626] text-sm text-center">{error}</p>}
 
-                    <button type="submit" className="w-full btn-gradient-primary text-white font-bold py-3 mt-6 rounded-full shadow-lg hover:opacity-90 flex items-center justify-center">
+                    <button type="submit" className="w-full bg-gradient-to-r from-[#061346] to-[#212842] text-white font-bold py-3 mt-6 rounded-full shadow-lg hover:opacity-90 flex items-center justify-center">
                         <CheckCircle size={20} className="mr-2"/>
                         Ganti Kata Sandi
                     </button>
@@ -1283,32 +1247,32 @@ const HelpCenterScreen = ({ onBack, unreadCount, onShowNotifications }) => {
     ];
     const [openFaq, setOpenFaq] = useState(null);
     return (
-        <div className="flex flex-col h-full bg-transparent">
+        <div className="flex flex-col h-full bg-gray-100 dark:bg-slate-900">
             <Header title="Pusat Bantuan" onBack={onBack} onShowNotifications={onShowNotifications} unreadCount={unreadCount} primary={true}/>
             <div className="flex-grow overflow-y-auto p-4 pb-24 md:pb-4 max-w-2xl mx-auto w-full">
                 <h2 className="text-xl font-bold mb-4">Pertanyaan Umum (FAQ)</h2>
-                <div className="space-y-2">{faqs.map((faq, index) => (<div key={index} className="border-b dark:border-gray-700 bg-[var(--light-card)] dark:bg-[var(--dark-card)] rounded-lg"><button onClick={() => setOpenFaq(openFaq === index ? null : index)} className="w-full flex justify-between items-center text-left p-4"><span className="font-semibold">{faq.q}</span><ChevronDown className={`transform transition-transform ${openFaq === index ? 'rotate-180' : ''}`} size={20} /></button>{openFaq === index && <div className="p-4 pt-0 text-gray-600 dark:text-gray-300"><p>{faq.a}</p></div>}</div>))}</div>
-                <div className="mt-8 bg-[var(--light-card)] dark:bg-[var(--dark-card)] p-4 rounded-lg shadow-sm border border-[var(--light-gray-border)] dark:border-gray-700"><h3 className="font-bold text-lg mb-2">Butuh Bantuan Lain?</h3><p>Jika Anda memiliki pertanyaan lain, hubungi tim kami di <a href="mailto:dukungan@nurishare.app" className="text-[var(--primary-color)] font-semibold">dukungan@nurishare.app</a>.</p></div>
+                <div className="space-y-2">{faqs.map((faq, index) => (<div key={index} className="border-b dark:border-gray-700 bg-white dark:bg-slate-800 rounded-lg"><button onClick={() => setOpenFaq(openFaq === index ? null : index)} className="w-full flex justify-between items-center text-left p-4"><span className="font-semibold">{faq.q}</span><ChevronDown className={`transform transition-transform ${openFaq === index ? 'rotate-180' : ''}`} size={20} /></button>{openFaq === index && <div className="p-4 pt-0 text-gray-600 dark:text-gray-300"><p>{faq.a}</p></div>}</div>))}</div>
+                <div className="mt-8 bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700"><h3 className="font-bold text-lg mb-2">Butuh Bantuan Lain?</h3><p>Jika Anda memiliki pertanyaan lain, hubungi tim kami di <a href="mailto:dukungan@nurishare.app" className="text-[#061346] font-semibold">dukungan@nurishare.app</a>.</p></div>
             </div>
         </div>
     );
 };
 const AboutUsScreen = ({ onBack, unreadCount, onShowNotifications }) => {
     return (
-        <div className="flex flex-col h-full bg-gradient-to-b from-[var(--cream)] to-white dark:from-[var(--dark-card)] dark:to-black">
+        <div className="flex flex-col h-full bg-gradient-to-b from-[#FFF2DF] to-white dark:from-slate-800 dark:to-slate-900">
             <Header title="Tentang NURISHARE" onBack={onBack} onShowNotifications={onShowNotifications} unreadCount={unreadCount} primary={true}/>
             <div className="flex-grow overflow-y-auto p-6 pb-24 md:pb-4 text-gray-700 dark:text-gray-300 leading-relaxed space-y-4 max-w-2xl mx-auto w-full">
                 <div className="text-center">
                     <LogoWithName 
                         className="justify-center" 
-                        nameHandColor="var(--primary-color)" 
-                        nameLeafColor="var(--success-color)" 
-                        textHandColor="var(--primary-color)"
-                        textLeafColor="var(--success-color)"
+                        nameHandColor="#061346" 
+                        nameLeafColor="#16a34a" 
+                        textHandColor="#061346"
+                        textLeafColor="#16a34a"
                     />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mt-4">An Ecosystem of Care</h2>
-                <p>Nama NURISHARE terinspirasi dari tiga nilai utama: <strong className="text-[var(--primary-color)]">Nourish</strong> (Memberi Gizi), <strong className="text-[var(--success-color)]">Share</strong> (Berbagi), dan <strong className="text-[var(--primary-color)]">Care</strong> (Kepedulian).</p>
+                <p>Nama NURISHARE terinspirasi dari tiga nilai utama: <strong className="text-[#061346]">Nourish</strong> (Memberi Gizi), <strong className="text-[#16a34a]">Share</strong> (Berbagi), dan <strong className="text-[#061346]">Care</strong> (Kepedulian).</p>
                 <p>'Care' atau kepedulian, menjadi detak jantung dari setiap aksi berbagi di platform kami. Kami percaya bahwa setiap tindakan berbagi bukan hanya soal transfer makanan, tetapi juga transfer empati dan kehangatan.</p>
                 <p>Misi kami adalah membangun ekosistem di mana tidak ada makanan yang terbuang dan tidak ada seorang pun yang kelaparan, semua didasari oleh rasa kepedulian satu sama lain. Terima kasih telah menjadi bagian dari gerakan ini.</p>
             </div>
@@ -1319,22 +1283,22 @@ const HelpRequestModal = ({ request, onClose, onConfirmHelp }) => {
     if (!request) return null;
     return (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50">
-            <div className="bg-gradient-to-b from-[var(--cream)] to-white dark:from-[var(--dark-card)] dark:to-black rounded-xl shadow-2xl p-6 w-full max-w-sm max-h-[90vh] overflow-y-auto relative text-gray-800 dark:text-gray-200">
+            <div className="bg-gradient-to-b from-[#FFF2DF] to-white dark:from-slate-800 dark:to-slate-900 rounded-xl shadow-2xl p-6 w-full max-w-sm max-h-[90vh] overflow-y-auto relative text-gray-800 dark:text-gray-200">
                 <button onClick={onClose} className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 dark:hover:text-white"><XCircle size={24} /></button>
-                <h3 className="text-xl font-bold mb-2 flex items-center text-[var(--primary-color)]"><Heart size={22} className="mr-2"/>Bantu Permintaan Ini?</h3>
-                <div className="mb-4 p-3 bg-white/50 dark:bg-black/20 border-l-4 border-[var(--primary-color)] rounded-r-lg">
+                <h3 className="text-xl font-bold mb-2 flex items-center text-[#061346]"><Heart size={22} className="mr-2"/>Bantu Permintaan Ini?</h3>
+                <div className="mb-4 p-3 bg-white/50 dark:bg-black/20 border-l-4 border-[#061346] rounded-r-lg">
                     <p className="font-semibold">{request.item} untuk {request.organization}</p>
                     <p className="text-sm text-gray-600 dark:text-gray-400">{request.detail}</p>
                 </div>
                 <p className="text-sm">Dengan mengklik 'Ya', Anda berkomitmen untuk menyediakan bantuan ini. Aksi Anda akan tercatat di halaman Aktivitas.</p>
-                <button onClick={() => onConfirmHelp(request)} className="mt-6 w-full btn-gradient-primary text-white font-bold py-2.5 rounded-full shadow-lg hover:opacity-90">Ya, Saya akan Bantu</button>
+                <button onClick={() => onConfirmHelp(request)} className="mt-6 w-full bg-gradient-to-r from-[#061346] to-[#212842] text-white font-bold py-2.5 rounded-full shadow-lg hover:opacity-90">Ya, Saya akan Bantu</button>
             </div>
         </div>
     );
 };
 const NotificationDetailModal = ({ notification, onClose }) => (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50">
-        <div className="bg-gradient-to-b from-[var(--cream)] to-white dark:from-[var(--dark-card)] dark:to-black rounded-xl shadow-2xl p-6 w-full max-w-sm relative text-gray-800 dark:text-gray-200">
+        <div className="bg-gradient-to-b from-[#FFF2DF] to-white dark:from-slate-800 dark:to-slate-900 rounded-xl shadow-2xl p-6 w-full max-w-sm relative text-gray-800 dark:text-gray-200">
             <button onClick={onClose} className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 dark:hover:text-white"><XCircle size={24} /></button>
             <h3 className="text-xl font-bold mb-4">Detail Notifikasi</h3>
             <p className="text-sm">{notification.text}</p>
@@ -1346,11 +1310,11 @@ const NotificationDetailModal = ({ notification, onClose }) => (
 
 const SuccessModal = ({ title, message, buttonText, onClose }) => (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50">
-        <div className="bg-gradient-to-b from-[var(--cream)] to-white dark:from-[var(--dark-card)] dark:to-black rounded-xl shadow-2xl p-8 w-full max-w-sm relative text-center text-gray-800 dark:text-gray-200">
-           <PartyPopper size={60} className="mx-auto text-[var(--primary-color)] mb-4"/>
+        <div className="bg-gradient-to-b from-[#FFF2DF] to-white dark:from-slate-800 dark:to-slate-900 rounded-xl shadow-2xl p-8 w-full max-w-sm relative text-center text-gray-800 dark:text-gray-200">
+           <PartyPopper size={60} className="mx-auto text-[#061346] mb-4"/>
             <h2 className="text-2xl font-bold mb-2">{title}</h2>
             <p className="mb-6">{message}</p>
-            <button onClick={onClose} className="w-full btn-gradient-primary text-white font-bold py-3 rounded-lg transition-colors shadow-lg">{buttonText}</button>
+            <button onClick={onClose} className="w-full bg-gradient-to-r from-[#061346] to-[#212842] text-white font-bold py-3 rounded-lg transition-colors shadow-lg">{buttonText}</button>
         </div>
     </div>
 );
@@ -1384,11 +1348,11 @@ const PaymentScreen = ({ item, onBack, onPaymentSuccess }) => {
     ];
 
     return (
-        <div className="flex flex-col h-full bg-transparent">
+        <div className="flex flex-col h-full bg-gray-100 dark:bg-slate-900">
             <Header title="Pembayaran" onBack={onBack} primary />
             <div className="flex-grow p-4 md:p-8 space-y-4 pb-24 md:pb-4 max-w-5xl mx-auto w-full md:grid md:grid-cols-2 md:gap-8">
                 <div className="md:col-span-1 space-y-4">
-                    <div className="bg-white dark:bg-[var(--dark-card)] p-4 rounded-xl shadow">
+                    <div className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow">
                         <h2 className="font-bold text-lg">Detail Pesanan</h2>
                         <div className="flex justify-between mt-2 text-sm">
                             <span>{item.category} (x{item.claimedQuantity})</span>
@@ -1400,22 +1364,22 @@ const PaymentScreen = ({ item, onBack, onPaymentSuccess }) => {
                         </div>
                     </div>
                     {selectedMethod && (
-                         <div className="bg-white dark:bg-[var(--dark-card)] p-4 rounded-xl shadow">
+                         <div className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow">
                             <h2 className="font-bold text-lg mb-2">Instruksi Pembayaran</h2>
                             <p className="text-sm text-gray-600 dark:text-gray-300">{selectedMethod.details}</p>
                         </div>
                     )}
                 </div>
-                <div className="md:col-span-1 bg-white dark:bg-[var(--dark-card)] p-4 rounded-xl shadow">
+                <div className="md:col-span-1 bg-white dark:bg-slate-800 p-4 rounded-xl shadow">
                     <h2 className="font-bold text-lg mb-3">Pilih Metode Pembayaran</h2>
                     <div className="space-y-2">
                         {paymentMethods.map(method => {
                             const Icon = method.icon;
                             return (
-                                <button key={method.name} onClick={() => setSelectedMethod(method)} className={`w-full flex items-center p-3 rounded-lg border-2 transition-colors ${selectedMethod?.name === method.name ? 'border-[var(--primary-color)] bg-[var(--cream)]' : 'border-transparent hover:bg-gray-100 dark:hover:bg-gray-700'}`}>
-                                    <Icon className="mr-3 text-[var(--primary-color)]" />
+                                <button key={method.name} onClick={() => setSelectedMethod(method)} className={`w-full flex items-center p-3 rounded-lg border-2 transition-colors ${selectedMethod?.name === method.name ? 'border-[#061346] bg-[#FFF2DF]' : 'border-transparent hover:bg-gray-100 dark:hover:bg-gray-700'}`}>
+                                    <Icon className="mr-3 text-[#061346]" />
                                     <span>{method.name}</span>
-                                    {selectedMethod?.name === method.name && <CheckCircle size={20} className="ml-auto text-[var(--success-color)]" />}
+                                    {selectedMethod?.name === method.name && <CheckCircle size={20} className="ml-auto text-[#16a34a]" />}
                                 </button>
                             )
                         })}
@@ -1424,7 +1388,7 @@ const PaymentScreen = ({ item, onBack, onPaymentSuccess }) => {
 
             </div>
             <div className="fixed bottom-16 left-0 right-0 p-3 bg-white/80 dark:bg-black/80 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700 z-30 md:static md:bottom-auto md:w-1/2 md:mx-auto md:p-0 md:mb-4">
-                 <button onClick={handlePayment} disabled={!selectedMethod} className="w-full btn-gradient-primary text-white font-bold py-3 px-5 rounded-full shadow-lg flex items-center justify-center text-sm transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed">
+                 <button onClick={handlePayment} disabled={!selectedMethod} className="w-full bg-gradient-to-r from-[#061346] to-[#212842] text-white font-bold py-3 px-5 rounded-full shadow-lg flex items-center justify-center text-sm transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed">
                      Bayar Sekarang
                  </button>
             </div>
@@ -1432,27 +1396,79 @@ const PaymentScreen = ({ item, onBack, onPaymentSuccess }) => {
     )
 }
 
-const ClaimProofModal = ({ claim, onClose }) => {
-    if(!claim) return null;
-    return (
-         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-            <div className="bg-white dark:bg-[var(--dark-card)] p-6 rounded-2xl w-full max-w-sm text-center relative">
-                 <button onClick={onClose} className="absolute top-2 right-2 text-gray-400 hover:text-gray-700">
-                    <XCircle size={24} />
-                </button>
-                <h2 className="text-xl font-bold mb-2 text-[var(--primary-color)]">Bukti Klaim</h2>
-                <p className="mb-4 text-sm text-gray-600">Tunjukkan kode ini kepada donatur.</p>
-                <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg mb-4">
-                     <p className="text-lg font-semibold">{claim.category} (x{claim.claimedQuantity})</p>
-                     <p className="text-sm text-gray-500">Dari: {claim.giver}</p>
-                </div>
-                <div className="p-4 border-2 border-dashed border-[var(--primary-color)] rounded-lg">
-                    <p className="text-3xl font-bold tracking-widest text-gray-800 dark:text-gray-200">{claim.id.slice(-6).toUpperCase()}</p>
+const ClaimDetailScreen = ({ claimId, onBack, claimHistory, onConfirmCollection, onRate, setZoomedImage }) => {
+    const claim = useMemo(() => claimHistory.find(c => c.id === claimId), [claimHistory, claimId]);
+    
+    if (!claim) {
+        return (
+            <div className="flex flex-col h-full bg-gray-100 dark:bg-slate-900">
+                <Header title="Error" onBack={onBack} primary={true} />
+                <div className="flex-grow flex flex-col items-center justify-center p-4">
+                  <XCircle size={48} className="text-red-500 mb-4" />
+                  <h2 className="text-xl font-bold mb-2">Detail Klaim Tidak Ditemukan</h2>
+                  <p className="text-gray-600 dark:text-gray-400">Silakan coba lagi atau kembali ke aktivitas.</p>
                 </div>
             </div>
+        );
+    }
+    
+    const totalPrice = claim.price * claim.claimedQuantity;
+    const priceDisplay = claim.price === 0 ? 'Gratis' : `Rp ${totalPrice.toLocaleString('id-ID')}`;
+    const statusMap = {
+        'claimed': { text: 'Menunggu Pengambilan', color: 'text-blue-600', icon: Clock },
+        'collected': { text: 'Telah Diambil', color: 'text-green-600', icon: CheckCircle },
+        'completed': { text: 'Selesai & Dinilai', color: 'text-purple-600', icon: Star },
+        'delivered_by_helper': { text: 'Menunggu Konfirmasi Penerimaan', color: 'text-orange-500', icon: Truck },
+    };
+    const currentStatus = statusMap[claim.status] || {text: claim.status, color: 'text-gray-600', icon: HelpCircle };
+    const StatusIcon = currentStatus.icon;
+
+    return (
+        <div className="flex flex-col h-full bg-white dark:bg-slate-900">
+            <Header title="Detail Klaim Saya" onBack={onBack} primary />
+            <div className="flex-grow overflow-y-auto pb-24 md:pb-4">
+                 <div className="max-w-7xl mx-auto md:grid md:grid-cols-2 md:gap-8 md:p-4">
+                    <div className="w-full">
+                        <img src={claim.photos[0]} alt={claim.category} className="w-full h-64 md:h-96 object-cover cursor-pointer md:rounded-lg" onClick={() => setZoomedImage(claim.photos[0])} onError={(e) => { e.target.src="https://placehold.co/600x400/E5E7EB/9CA3AF?text=No+Image"; }} />
+                    </div>
+                    <div className="p-3 md:p-0 space-y-4">
+                        <h2 className="text-xl md:text-3xl font-bold text-gray-800 dark:text-white">{claim.category}</h2>
+                        <p className="text-sm md:text-lg text-gray-600 dark:text-gray-300">Dari: <span className="font-semibold">{claim.giver}</span></p>
+
+                        <div className="p-3 rounded-lg bg-[#061346] text-white">
+                            <h3 className="font-semibold text-base mb-2">Ringkasan Klaim</h3>
+                            <div className="space-y-2 text-xs">
+                               <div className="flex items-center gap-2.5"><Package className="text-white flex-shrink-0" size={14} /><p>Jumlah Diklaim: {claim.claimedQuantity} unit</p></div>
+                               <div className="flex items-center gap-2.5"><DollarSign className="text-white flex-shrink-0" size={14} /><p>Total Biaya: {priceDisplay}</p></div>
+                                <div className="flex items-center gap-2.5"><StatusIcon className="text-white flex-shrink-0" size={14} /><p>Status: {currentStatus.text}</p></div>
+                            </div>
+                        </div>
+
+                         <div className="p-4 rounded-lg bg-gray-100 dark:bg-gray-800 text-center">
+                            <h3 className="font-bold text-base mb-2">Kode Bukti Klaim</h3>
+                            <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">Tunjukkan kode ini kepada donatur.</p>
+                            <div className="p-3 border-2 border-dashed border-[#061346] rounded-lg bg-white dark:bg-gray-700">
+                                <p className="text-3xl font-bold tracking-widest text-gray-800 dark:text-gray-200">{claim.id.slice(-6).toUpperCase()}</p>
+                            </div>
+                        </div>
+
+                        <div className="space-y-3">
+                             {claim.status === 'claimed' && <button onClick={() => onConfirmCollection(claim.id)} className="w-full bg-gradient-to-r from-[#16a34a] to-[#15803d] text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2"><CheckCircle size={18}/> Konfirmasi Sudah Diambil</button>}
+                             {claim.status === 'delivered_by_helper' && <button onClick={() => onConfirmCollection(claim.id)} className="w-full bg-gradient-to-r from-[#16a34a] to-[#15803d] text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2"><CheckCircle size={18}/> Konfirmasi Sudah Diterima</button>}
+                             {claim.status === 'collected' && !claim.isRated && <button onClick={() => onRate(claim)} className="w-full bg-yellow-500 text-black font-bold py-3 rounded-lg flex items-center justify-center gap-2"><Star size={18}/> Beri Rating</button>}
+                             {claim.status === 'completed' && (
+                                <div className="text-center p-3 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-200 rounded-lg">
+                                    <p className="font-semibold">Aktivitas Selesai</p>
+                                    <p className="text-xs">Terima kasih atas partisipasi Anda!</p>
+                                </div>
+                             )}
+                        </div>
+                    </div>
+                 </div>
+            </div>
         </div>
-    )
-}
+    );
+};
 
 const RatingModal = ({ item, onClose, onSubmitRating }) => {
     const [rating, setRating] = useState(5);
@@ -1460,7 +1476,7 @@ const RatingModal = ({ item, onClose, onSubmitRating }) => {
 
     return (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-            <div className="bg-white dark:bg-[var(--dark-card)] p-6 rounded-2xl w-full max-w-sm relative">
+            <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl w-full max-w-sm relative">
                 <button onClick={onClose} className="absolute top-2 right-2 text-gray-400 hover:text-gray-700"><XCircle size={24} /></button>
                 <h2 className="text-xl font-bold mb-2">Beri Rating</h2>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">Beri rating untuk donasi "{item.item || item.category}" dari {item.giver || item.organization}.</p>
@@ -1471,8 +1487,8 @@ const RatingModal = ({ item, onClose, onSubmitRating }) => {
                         </button>
                     ))}
                 </div>
-                <textarea value={comment} onChange={e => setComment(e.target.value)} placeholder="Tulis komentar (opsional)..." className="w-full p-2 border border-[var(--light-gray-border)] dark:border-gray-600 rounded-lg bg-transparent h-24 mb-4"/>
-                <button onClick={() => onSubmitRating(item.id, rating, comment)} className="w-full btn-gradient-primary text-white font-bold py-3 rounded-lg">Kirim Rating</button>
+                <textarea value={comment} onChange={e => setComment(e.target.value)} placeholder="Tulis komentar (opsional)..." className="w-full p-2 border border-gray-200 dark:border-gray-600 rounded-lg bg-transparent h-24 mb-4"/>
+                <button onClick={() => onSubmitRating(item.id, rating, comment)} className="w-full bg-gradient-to-r from-[#061346] to-[#212842] text-white font-bold py-3 rounded-lg">Kirim Rating</button>
             </div>
         </div>
     );
@@ -1486,7 +1502,22 @@ const ConfirmLogoutModal = ({ onConfirm, onCancel }) => {
                 <p className="text-gray-300 mb-6">Anda harus login kembali untuk melanjutkan.</p>
                 <div className="flex justify-center gap-4">
                     <button onClick={onCancel} className="w-full bg-gray-600 hover:bg-gray-500 font-semibold py-2 px-4 rounded-lg transition-colors">Batal</button>
-                    <button onClick={onConfirm} className="w-full btn-gradient-danger hover:opacity-90 font-semibold py-2 px-4 rounded-lg transition-colors">Ya, Keluar</button>
+                    <button onClick={onConfirm} className="w-full bg-gradient-to-r from-[#dc2626] to-[#b91c1c] hover:opacity-90 font-semibold py-2 px-4 rounded-lg transition-colors">Ya, Keluar</button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const ConfirmClearHistoryModal = ({ onConfirm, onCancel }) => {
+    return (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-[51]">
+            <div className="bg-gradient-to-br from-gray-700 to-gray-900 rounded-xl shadow-2xl p-6 w-full max-w-sm text-center text-white">
+                <h2 className="text-2xl font-bold mb-2">Hapus Riwayat?</h2>
+                <p className="text-gray-300 mb-6">Aksi ini tidak dapat dibatalkan. Semua riwayat donasi dan klaim Anda akan dihapus secara permanen.</p>
+                <div className="flex justify-center gap-4">
+                    <button onClick={onCancel} className="w-full bg-gray-600 hover:bg-gray-500 font-semibold py-2 px-4 rounded-lg transition-colors">Batal</button>
+                    <button onClick={onConfirm} className="w-full bg-gradient-to-r from-[#dc2626] to-[#b91c1c] hover:opacity-90 font-semibold py-2 px-4 rounded-lg transition-colors">Ya, Hapus</button>
                 </div>
             </div>
         </div>
@@ -1513,7 +1544,6 @@ function App() {
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
   const [showResetSuccessModal, setShowResetSuccessModal] = useState(false);
-  const [showClaimProof, setShowClaimProof] = useState(null);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [showNotifDetail, setShowNotifDetail] = useState(null);
   const [zoomedImage, setZoomedImage] = useState(null);
@@ -1521,24 +1551,20 @@ function App() {
   const [recipeModalItem, setRecipeModalItem] = useState(null);
   const [ratingItem, setRatingItem] = useState(null);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [showClearHistoryModal, setShowClearHistoryModal] = useState(false);
 
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem('nurishare-theme');
+    return savedTheme || 'light';
+  });
 
-  
-  const [theme, setTheme] = useState({ mode: 'light', color: 'navy' });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const root = window.document.documentElement;
     root.classList.remove('light', 'dark');
-    root.classList.add(theme.mode);
-    
-    Object.keys(PALETTE).forEach(key => {
-        root.style.setProperty(`--${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`, PALETTE[key]);
-    });
-     root.style.setProperty('--primary-color', PALETTE.primaryAccent);
-     root.style.setProperty('--primary-color-dark', THEMES.navy.dark);
-
-
+    root.classList.add(theme);
+    localStorage.setItem('nurishare-theme', theme);
   }, [theme]);
   
   useEffect(() => {
@@ -1555,8 +1581,13 @@ function App() {
     if (!currentUser) return [];
     const regularDonations = foodList.filter(food => food.giver === currentUser.name);
     const helpDonations = donatedItems.filter(item => item.giver === currentUser.name);
-    return [...regularDonations, ...helpDonations];
+    return [...regularDonations, ...helpDonations].sort((a,b) => (b.id > a.id) ? 1 : -1);
   }, [foodList, donatedItems, currentUser]);
+  
+  const myClaims = useMemo(() => {
+      if (!currentUser) return [];
+      return claimHistory.sort((a,b) => (b.id > a.id) ? 1 : -1);
+  }, [claimHistory, currentUser]);
 
   const handleShowToast = useCallback((message) => { setToastMessage(message); }, []);
 
@@ -1623,24 +1654,31 @@ function App() {
       if(history.length > 1) setHistory(prev => prev.slice(0, -1)); 
   };
   
-  const processClaim = (item, quantity) => {
-    const claimId = `claim-${Date.now()}`;
-    const newClaim = { ...item, claimedQuantity: quantity, id: claimId, status: 'claimed' };
-    
-    setClaimHistory(prev => [newClaim, ...prev]);
-    
-    setFoodList(prevList => prevList.map(food => 
-        food.id === item.id ? { ...food, stock: food.stock - quantity, status: food.stock - quantity <= 0 ? 'claimed' : food.status } : food
-    ));
-    
-    handleShowToast(`Klaim ${item.category} berhasil!`);
-    setNotifications(prev => [
-        {id: `notif-${Date.now()}`, text: `Anda berhasil mengklaim ${quantity} ${item.category}.`, timeAgo: 'Baru saja', read: false},
-        ...prev
-    ]);
-    
-    handleNavigate('activities', true);
-  };
+    const processClaim = (item, quantity) => {
+        const claimId = `claim-${Date.now()}`;
+        const newClaim = {
+            ...item,
+            foodId: item.id,
+            id: claimId,
+            claimedQuantity: quantity,
+            status: 'claimed'
+        };
+
+        setClaimHistory(prev => [newClaim, ...prev]);
+
+        setFoodList(prevList => prevList.map(food =>
+            food.id === item.id ? { ...food, stock: food.stock - quantity, status: food.stock - quantity <= 0 ? 'claimed' : food.status } : food
+        ));
+
+        handleShowToast(`Klaim ${item.category} berhasil!`);
+        setNotifications(prev => [
+            { id: `notif-${Date.now()}`, text: `Anda berhasil mengklaim ${quantity} ${item.category}.`, timeAgo: 'Baru saja', read: false },
+            ...prev
+        ]);
+
+        handleNavigate('activities', true);
+    };
+
 
   const handleClaimFood = (item, quantity) => {
     if(item.price > 0){
@@ -1658,22 +1696,20 @@ function App() {
 
   const handleConfirmHelp = (request) => {
       const donationId = `don-${Date.now()}`;
-      // Buat item donasi baru untuk pelacakan di halaman aktivitas
       const newDonation = {
           id: donationId,
           item: request.item,
           quantity: request.quantity,
           giver: currentUser.name,
           receiver: request.organization,
-          status: 'delivered_by_helper', // Status awal donasi
-          isRequestFulfillment: true, // Tandai ini sebagai pemenuhan permintaan
+          status: 'delivered_by_helper',
+          isRequestFulfillment: true,
           requestId: request.id
       };
       setDonatedItems(prev => [...prev, newDonation]);
 
-      // Buat item klaim untuk si penerima
       const newClaimForReceiver = {
-          id: donationId, // Gunakan ID yang sama untuk sinkronisasi
+          id: donationId,
           item: request.item,
           quantity: request.quantity,
           giver: currentUser.name,
@@ -1682,32 +1718,21 @@ function App() {
           requestId: request.id
       };
       setClaimHistory(prev => [...prev, newClaimForReceiver]);
-
-      // Ubah status permintaan asli
       setUrgentRequests(prev => prev.map(r => r.id === request.id ? { ...r, status: 'being_helped' } : r));
-
-      // Notifikasi untuk pemohon dan donatur
       setNotifications(prev => [{id: `notif-${Date.now()}-1`, text: `${currentUser.name} akan membantu permintaan Anda untuk "${request.item}".`, timeAgo: 'Baru saja', read: false, for: request.organization }, ...prev]);
       setNotifications(prev => [{id: `notif-${Date.now()}-2`, text: `Terima kasih! Komitmen Anda untuk membantu "${request.item}" telah dicatat.`, timeAgo: 'Baru saja', read: false }, ...prev]);
-      
       handleShowToast("Terima kasih! Komitmen bantuan Anda telah dikonfirmasi.");
       setShowHelpModal(false);
       handleNavigate('activities', true);
   }
 
   const handleConfirmCollection = (itemId) => {
-      // Update di daftar donasi helper
       setDonatedItems(prev => prev.map(d => d.id === itemId ? { ...d, status: 'collected' } : d));
-      // Update di daftar klaim receiver
       setClaimHistory(prev => prev.map(c => c.id === itemId ? { ...c, status: 'collected' } : c));
-      
       const item = donatedItems.find(d=>d.id === itemId) || claimHistory.find(c=>c.id === itemId);
       const itemName = item.item || item.category
-      
-      // Notifikasi untuk helper dan receiver
       setNotifications(prev => [{id: `notif-${Date.now()}-1`, text: `Bantuan Anda untuk "${itemName}" telah dikonfirmasi oleh penerima.`, timeAgo: 'Baru saja', read: false}, ...prev]);
       setNotifications(prev => [{id: `notif-${Date.now()}-2`, text: `Anda telah mengonfirmasi penerimaan "${itemName}". Jangan lupa beri rating!`, timeAgo: 'Baru saja', read: false, for: item.receiver}, ...prev]);
-
       handleShowToast("Penerimaan bantuan telah dikonfirmasi.");
   };
   
@@ -1715,17 +1740,20 @@ function App() {
       const claimToUpdate = claimHistory.find(c => c.id === itemId);
       
       setClaimHistory(prev => prev.map(c => c.id === itemId ? { ...c, isRated: true, rating, comment, status: 'completed' } : c));
-      
       setDonatedItems(prev => prev.map(d => d.id === itemId ? { ...d, status: 'completed' } : d));
-
-      // Beri poin pada donatur
-      // (asumsi kita perlu mencari user donatur, tapi di simulasi kita update currentUser saja)
       handleShowToast("Rating berhasil dikirim! Donatur akan mendapat poin kebaikan.");
-      
       const itemName = claimToUpdate.item || claimToUpdate.category;
       setNotifications(prev => [{id: `notif-${Date.now()}-1`, text: `Anda mendapat rating ${rating} bintang untuk bantuan "${itemName}"!`, timeAgo: 'Baru saja', read: false, for: claimToUpdate.giver}, ...prev]);
 
       setRatingItem(null);
+  };
+
+  const handleClearActivityHistory = () => {
+      setClaimHistory([]);
+      setDonatedItems([]);
+      // Active food donations are not cleared, only logs/history.
+      handleShowToast("Semua riwayat aktivitas telah dihapus.");
+      setShowClearHistoryModal(false);
   };
 
 
@@ -1775,9 +1803,10 @@ function App() {
         home: { foodList, onClaimFood: handleClaimFood, onHelpRequest: (req) => { setSelectedRequest(req); setShowHelpModal(true); }, urgentRequests, ...commonProps },
         requests: { requests: urgentRequests, onCreateRequest: handleCreateRequest, ...commonProps },
         post: { onPostFood: handlePostFood, ...commonProps },
-        activities: { myDonations, myClaims: claimHistory, onConfirmCollection: handleConfirmCollection, onRate: (item) => setRatingItem(item), onShowClaimProof: (claim) => setShowClaimProof(claim), ...commonProps },
+        activities: { myDonations, myClaims, onConfirmCollection: handleConfirmCollection, onRate: (item) => setRatingItem(item), onClearHistory: () => setShowClearHistoryModal(true), ...commonProps },
         profile: { user: currentUser, onLogout: () => setShowLogoutModal(true), ...commonProps },
         'food-detail': { foodId: pageId, foodList, onClaimFood: handleClaimFood, onBack: handleBack, ...commonProps, onShowRecipeModal: (item) => setRecipeModalItem(item), setZoomedImage },
+        'claim-detail': { claimId: pageId, claimHistory, onBack: handleBack, onConfirmCollection: handleConfirmCollection, onRate: (item) => setRatingItem(item), setZoomedImage, ...commonProps },
         'request-detail': { requestId: pageId, requests: urgentRequests, onHelpRequest: (req) => { setSelectedRequest(req); setShowHelpModal(true); }, onBack: handleBack, ...commonProps },
         notifications: { notifications, onMarkAsRead: handleMarkAsRead, onMarkAllRead: handleMarkAllRead, onDeleteNotification: handleDeleteNotification, onClearHistory: handleDeleteAllNotifications, onNotifClick: (notif) => setShowNotifDetail(notif), onBack: handleBack, ...commonProps },
         'account-settings': { user: currentUser, onSave: handleUpdateUser, theme, setTheme, onBack: handleBack, ...commonProps },
@@ -1795,11 +1824,12 @@ function App() {
         activities: MyItemsScreen,
         profile: ProfileScreen,
         'food-detail': FoodDetailScreen,
+        'claim-detail': ClaimDetailScreen,
         'request-detail': ({requestId, requests, onHelpRequest, onBack, currentUser}) => {
              const request = requests.find(r => r.id === requestId);
              if(!request) return <div className="p-4">Permintaan tidak ditemukan.</div>
              return (
-                 <div className="flex flex-col h-full bg-transparent">
+                 <div className="flex flex-col h-full bg-gray-100 dark:bg-slate-900">
                     <Header title="Detail Permintaan" onBack={onBack} primary />
                     <div className="flex-grow p-4 space-y-4 max-w-2xl mx-auto w-full">
                         <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow space-y-2">
@@ -1811,7 +1841,7 @@ function App() {
                              <p className={`text-sm font-bold mt-2 ${request.status === 'open' ? 'text-green-600' : 'text-yellow-600'}`}>Status: {request.status === 'open' ? 'Terbuka' : 'Dalam Bantuan'}</p>
                         </div>
                         { currentUser.name !== request.organization &&
-                            <button onClick={() => onHelpRequest(request)} disabled={request.status !== 'open'} className="w-full btn-gradient-primary text-white font-bold py-3 rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed">Saya Mau Bantu</button>
+                            <button onClick={() => onHelpRequest(request)} disabled={request.status !== 'open'} className="w-full bg-gradient-to-r from-[#061346] to-[#212842] text-white font-bold py-3 rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed">Saya Mau Bantu</button>
                         }
                     </div>
                  </div>
@@ -1823,12 +1853,12 @@ function App() {
         'help-center': HelpCenterScreen,
         'about-us': AboutUsScreen,
         'redeem-points': ({onBack, user, handleShowToast, onRedeem}) => (
-            <div className="flex flex-col h-full bg-transparent">
+            <div className="flex flex-col h-full bg-gray-100 dark:bg-slate-900">
                 <Header title="Tukar Poin" onBack={onBack} primary />
                 <div className="flex-grow overflow-y-auto p-4 pb-24 md:pb-4 max-w-2xl mx-auto w-full">
-                    <div className="bg-white dark:bg-[var(--dark-card)] p-4 rounded-xl shadow text-center mb-4">
+                    <div className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow text-center mb-4">
                         <p className="text-sm text-gray-500">Poin Kebaikan Anda</p>
-                        <p className="text-3xl font-bold text-[var(--primary-color)] flex items-center justify-center gap-2">
+                        <p className="text-3xl font-bold text-[#061346] flex items-center justify-center gap-2">
                            <Award size={28} className="text-yellow-500" /> {user.points}
                         </p>
                     </div>
@@ -1838,9 +1868,9 @@ function App() {
                             const Icon = item.icon;
                             const canRedeem = user.points >= item.cost;
                             return (
-                                <div key={item.id} className="bg-white dark:bg-[var(--dark-card)] p-3 rounded-xl shadow flex items-center justify-between">
+                                <div key={item.id} className="bg-white dark:bg-slate-800 p-3 rounded-xl shadow flex items-center justify-between">
                                     <div className="flex items-center">
-                                        <Icon size={24} className="mr-3 text-[var(--primary-color)]" />
+                                        <Icon size={24} className="mr-3 text-[#061346]" />
                                         <div>
                                             <p className="font-semibold">{item.name}</p>
                                             <p className="text-xs text-yellow-600 font-bold">{item.cost} Poin</p>
@@ -1879,7 +1909,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen font-sans flex">
+    <div className={`min-h-screen font-sans flex ${theme}`}>
         <Nav activeTab={activeTab} onTabChange={(tab) => handleNavigate(tab, true)} />
         <main className="flex-1 md:ml-20 h-screen w-full">
              <div className="w-full h-full">
@@ -1890,11 +1920,11 @@ function App() {
       {toastMessage && <CustomToast message={toastMessage} onClose={() => setToastMessage(null)} />}
       {showHelpModal && <HelpRequestModal request={selectedRequest} onClose={() => setShowHelpModal(false)} onConfirmHelp={handleConfirmHelp} />}
       {showNotifDetail && <NotificationDetailModal notification={showNotifDetail} onClose={() => setShowNotifDetail(null)}/>}
-      {showClaimProof && <ClaimProofModal claim={showClaimProof} onClose={() => setShowClaimProof(null)} />}
       {zoomedImage && <ImageZoomModal imageUrl={zoomedImage} onClose={() => setZoomedImage(null)} />}
       {recipeModalItem && <RecipeModal item={recipeModalItem} onClose={() => setRecipeModalItem(null)} />}
       {ratingItem && <RatingModal item={ratingItem} onClose={()=>setRatingItem(null)} onSubmitRating={handleSubmitRating}/>}
       {showLogoutModal && <ConfirmLogoutModal onConfirm={handleLogout} onCancel={() => setShowLogoutModal(false)} />}
+      {showClearHistoryModal && <ConfirmClearHistoryModal onConfirm={handleClearActivityHistory} onCancel={() => setShowClearHistoryModal(false)} />}
     </div>
   );
 }
@@ -1942,7 +1972,7 @@ const RecipeModal = ({ item, onClose }) => {
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
             <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl w-full max-w-md max-h-[90vh] flex flex-col">
                 <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-xl font-bold text-[var(--primary-color)] flex items-center gap-2"><ChefHat size={22}/> Ide Resep untuk {item.category}</h2>
+                    <h2 className="text-xl font-bold text-[#061346] dark:text-blue-400 flex items-center gap-2"><ChefHat size={22}/> Ide Resep untuk {item.category}</h2>
                     <button onClick={onClose} className="text-gray-400 hover:text-gray-700">
                         <XCircle size={24} />
                     </button>
